@@ -27,7 +27,7 @@ doc!](https://github.com/anoadragon453/nio-template/edit/master/README.md)
 
 ## Project structure
 
-The majority of the code is kept inside of the `my_project_name` folder, which
+The majority of the code is kept inside of the `amicus_bot` folder, which
 is in itself a [python package](https://docs.python.org/3/tutorial/modules.html),
 the `__init__.py` file inside declaring it as such.
 
@@ -46,7 +46,7 @@ their needs. Be sure never to check the edited `config.yaml` into source control
 since it'll likely contain sensitive details such as passwords!
 
 Below is a detailed description of each of the source code files contained within
-the `my_project_name` directory:
+the `amicus_bot` directory:
 
 ### `main.py`
 

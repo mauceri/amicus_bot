@@ -51,15 +51,15 @@ class Storage(object):
 
             # Initialize a connection to the database, with autocommit on
             return sqlite3.connect(connection_string, isolation_level=None)
-        elif database_type == "postgres":
-            import psycopg2
+        # elif database_type == "postgres":
+        #     import psycopg2
 
-            conn = psycopg2.connect(connection_string)
+        #     conn = psycopg2.connect(connection_string)
 
-            # Autocommit on
-            conn.set_isolation_level(0)
+        #     # Autocommit on
+        #     conn.set_isolation_level(0)
 
-            return conn
+        #     return conn
 
     def _initial_setup(self):
         """Initial setup of the database"""

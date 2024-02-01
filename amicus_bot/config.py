@@ -6,7 +6,7 @@ from typing import Any, List
 
 import yaml
 
-from my_project_name.errors import ConfigError
+from amicus_bot.errors import ConfigError
 
 logger = logging.getLogger()
 

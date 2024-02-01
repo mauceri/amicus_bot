@@ -1,6 +1,6 @@
 import logging
 
-from my_project_name.chat_functions import send_text_to_room
+from amicus_bot.chat_functions import send_text_to_room
 
 logger = logging.getLogger(__name__)
 

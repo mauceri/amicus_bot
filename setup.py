@@ -15,20 +15,21 @@ def exec_file(path_segments):
 def read_file(path_segments):
     """Read a file from the package. Takes a list of strings to join to
     make the path"""
+    print(f"**********************{__file__}")
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), *path_segments)
     with open(file_path) as f:
         return f.read()
 
 
-version = exec_file(("my_project_name", "__init__.py"))["__version__"]
+version = exec_file(("amicus_bot", "__init__.py"))["__version__"]
 long_description = read_file(("README.md",))
 
 
 setup(
-    name="my-project-name",
+    name="amicus_bot",
     version=version,
-    url="https://github.com/anoadragon453/nio-template",
-    description="A matrix bot to do amazing things!",
+    url="https://github.com/mauceri/amicus_bot",
+    description="Un robot qui vous veut du bien",
     packages=find_packages(exclude=["tests", "tests.*"]),
     install_requires=[
         "matrix-nio[e2e]>=0.10.0",
@@ -55,5 +56,5 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     # Allow the user to run the bot with `my-project-name ...`
-    scripts=["my-project-name"],
+    scripts=["amicus_bot.py"],
 )
