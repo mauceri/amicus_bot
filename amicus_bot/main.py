@@ -14,7 +14,7 @@ from nio import (
     RoomMessageText,
 )
 
-from amicus_bot import Callbacks
+from amicus_bot.callbacks import Callbacks
 from amicus_bot.config import Config
 from amicus_bot.storage import Storage
 

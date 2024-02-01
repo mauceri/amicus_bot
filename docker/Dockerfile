@@ -23,22 +23,24 @@
 # then transfer those dependencies to the container we're going to ship,
 # before throwing this one away
 ARG PYTHON_VERSION=3.8
-FROM docker.io/python:${PYTHON_VERSION}-alpine3.11 as builder
+#FROM docker.io/python:${PYTHON_VERSION}-alpine3.11 as builder
+FROM python:${PYTHON_VERSION}-buster as builder
 
+RUN pip install --upgrade pip
 ##
 ## Build libolm for matrix-nio e2e support
 ##
 
 # Install libolm build dependencies
 ARG LIBOLM_VERSION=3.1.4
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
     make \
     cmake \
     gcc \
     g++ \
     git \
     libffi-dev \
-    yaml-dev \
+    libyaml-dev \
     python3-dev
 
 # Build libolm
@@ -50,17 +52,23 @@ COPY docker/build_and_install_libolm.sh /scripts/
 RUN /scripts/build_and_install_libolm.sh ${LIBOLM_VERSION} /python-libs
 
 # Install Postgres dependencies
-RUN apk add --no-cache \
-    musl-dev \
-    libpq \
-    postgresql-dev
+#apt-get update && apt-get install -y \
+#    musl-dev \
+#    libpq \
+#    postgresql-dev
 
 # Install python runtime modules. We do this before copying the source code
 # such that these dependencies can be cached
 # This speeds up subsequent image builds when the source code is changed
 RUN mkdir -p /src/amicus_bot
 COPY amicus_bot/__init__.py /src/amicus_bot/
-COPY README.md my-project-name /src/
+COPY README.md amicus-bot /src/
+
+RUN pip install psycopg2-binary
+
+RUN apt-get update && apt-get install -y curl build-essential pkg-config
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Build the dependencies
 COPY setup.py /src/setup.py
@@ -79,7 +87,7 @@ RUN pip install --prefix="/python-libs" --no-warn-script-location "/src/.[postgr
 
 # Create the container we'll actually ship. We need to copy libolm and any
 # python dependencies that we built above to this container
-FROM docker.io/python:${PYTHON_VERSION}-alpine3.11
+FROM python:${PYTHON_VERSION}-buster
 
 # Copy python dependencies from the "builder" container
 COPY --from=builder /python-libs /usr/local
@@ -88,14 +96,13 @@ COPY --from=builder /python-libs /usr/local
 COPY --from=builder /usr/local/lib/libolm* /usr/local/lib/
 
 # Install any native runtime dependencies
-RUN apk add --no-cache \
-    libstdc++ \
-    libpq \
-    postgresql-dev
+RUN apt-get update && apt-get install -y libpq-dev
+RUN apt-get install -y libstdc++6
+RUN pip install matrix-nio[e2e]
 
 # Specify a volume that holds the config file, SQLite3 database,
 # and the matrix-nio store
 VOLUME ["/data"]
 
 # Start the bot
-ENTRYPOINT ["amicus_bot.py", "/data/config.yaml"]
+ENTRYPOINT ["amicus-bot", "/data/config.yaml"]

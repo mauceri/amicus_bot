@@ -55,7 +55,7 @@ RUN apk add --no-cache \
 # such that these dependencies can be cached
 RUN mkdir -p /src/amicus_bot
 COPY amicus_bot/__init__.py /src/amicus_bot/
-COPY README.md my-project-name /src/
+COPY README.md amicus-bot /src/
 COPY setup.py /src/setup.py
 RUN pip install -e "/src/.[postgres]"
 
@@ -68,4 +68,4 @@ COPY *.py /src/
 VOLUME ["/data"]
 
 # Start the app
-ENTRYPOINT ["amicus_bot.py", "/data/config.yaml"]
+ENTRYPOINT ["amicus-bot", "/data/config.yaml"]

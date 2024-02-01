@@ -37,7 +37,7 @@ setup(
         "PyYAML>=5.1.2",
     ],
     extras_require={
-        "postgres": ["psycopg2>=2.8.5"],
+        #"postgres": ["psycopg2>=2.8.5"],
         "dev": [
             "isort==5.0.4",
             "flake8==3.8.3",
@@ -55,6 +55,6 @@ setup(
     ],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # Allow the user to run the bot with `my-project-name ...`
-    scripts=["amicus_bot.py"],
+    # Allow the user to run the bot with `amicus_bot ...`
+    scripts=["amicus-bot"],
 )
