@@ -5,10 +5,13 @@ from nio import JoinError
 from amicus_bot.bot_commands import Command
 from amicus_bot.message_responses import Message
 
+from iobserver import Observable, Observer
+
+
 logger = logging.getLogger(__name__)
 
 
-class Callbacks(object):
+class Callbacks(Observable):
     def __init__(self, client, store, config):
         """
         Args:
@@ -22,6 +25,13 @@ class Callbacks(object):
         self.store = store
         self.config = config
         self.command_prefix = config.command_prefix
+        self.observers = {}
+
+    def subscribe(self, observer: Observer):
+        self.observers[observer.pprefix()] = observer
+
+    def unsubscribe(self, observer: Observer):
+        del self.observers[observer.prefix()]
 
     async def message(self, room, event):
         """Callback for when a message event is received
@@ -34,7 +44,25 @@ class Callbacks(object):
         """
         # Extract the message text
         msg = event.body
-
+        
+        #logique de la prochaine version
+        l = msg.split(' ')
+        #le préfixe de la commande est le premier mot
+        cmd1 = l[0]
+        #le nouveau message est le reste
+        msg = ' '.join(l[1:])
+        
+        #si un objet est indexé par le préfixe de la commande on l'utilise
+        o = None;
+        try:
+            o = self.observers[cmd1]
+        except:
+            logger.info(f"{cmd1} not found")
+            return
+        else:
+            o.notify(event)
+        
+        
         # Ignore messages from ourselves
         if event.sender == self.client.user:
             return
@@ -43,6 +71,7 @@ class Callbacks(object):
             f"Bot message received for room {room.display_name} | "
             f"{room.user_name(event.sender)}: {msg}"
         )
+
 
         # Process as message if in a public room without command prefix
         has_command_prefix = msg.startswith(self.command_prefix)
