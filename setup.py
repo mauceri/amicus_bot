@@ -15,7 +15,6 @@ def exec_file(path_segments):
 def read_file(path_segments):
     """Read a file from the package. Takes a list of strings to join to
     make the path"""
-    print(f"**********************{__file__}")
     file_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), *path_segments)
     with open(file_path) as f:
         return f.read()
