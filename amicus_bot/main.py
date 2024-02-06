@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import asyncio
+import importlib
 import logging
 import sys
 from time import sleep
@@ -16,9 +17,11 @@ from nio import (
 
 from amicus_bot.callbacks import Callbacks
 from amicus_bot.config import Config
+from amicus_bot.interfaces import IObservable
 from amicus_bot.storage import Storage
 
 logger = logging.getLogger(__name__)
+
 
 
 async def main():
@@ -31,6 +34,7 @@ async def main():
         config_path = "config.yaml"
     config = Config(config_path)
 
+    logger.info(f"****************** Config file read {config}")
     # Configure the database
     store = Storage(config.database)
 
@@ -50,21 +54,23 @@ async def main():
         store_path=config.store_path,
         config=client_config,
     )
-
+    logger.info(f"****************** Client {client.user} created")
     # Set up event callbacks
     callbacks = Callbacks(client, store, config)
     client.add_event_callback(callbacks.message, (RoomMessageText,))
     client.add_event_callback(callbacks.invite, (InviteMemberEvent,))
-
+    
+    logger.info(f"****************** callbacks created")
     # Keep trying to reconnect on failure (with some time in-between)
     while True:
         try:
             # Try to login with the configured username/password
             try:
+                logger.info(f"****************** trying to login {config.user_password}")
                 login_response = await client.login(
                     password=config.user_password, device_name=config.device_name,
                 )
-
+                logger.info(f"****************** after client login {login_response}")
                 # Check if login failed
                 if type(login_response) == LoginError:
                     logger.error("Failed to login: %s", login_response.message)
@@ -81,7 +87,7 @@ async def main():
                 return False
 
             # Login succeeded!
-
+            logger.info(f"****************** Login success")
             # Sync encryption keys with the server
             # Required for participating in encrypted rooms
             if client.should_upload_keys:
@@ -100,4 +106,4 @@ async def main():
             await client.close()
 
 
-asyncio.get_event_loop().run_until_complete(main())
+#asyncio.get_event_loop().run_until_complete(main())
