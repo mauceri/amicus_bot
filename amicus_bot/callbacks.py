@@ -71,7 +71,7 @@ class Callbacks(IObservable):
             return
 
         logger.debug(
-            f"Bot message received for room {room.display_name} | "
+            f"******************** Bot message received for room {room.display_name} | "
             f"{room.user_name(event.sender)}: {msg}"
         )
 
