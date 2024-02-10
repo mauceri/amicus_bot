@@ -2,6 +2,7 @@
 import asyncio
 import importlib
 import logging
+import os
 import sys
 from time import sleep
 
@@ -17,12 +18,9 @@ from nio import (
 
 from amicus_bot.callbacks import Callbacks
 from amicus_bot.config import Config
-from amicus_bot.interfaces import IObservable
 from amicus_bot.storage import Storage
 
 logger = logging.getLogger(__name__)
-
-
 
 async def main():
     # Read config file
@@ -55,6 +53,8 @@ async def main():
         config=client_config,
     )
     logger.info(f"****************** Client {client.user} created")
+    
+ 
     # Set up event callbacks
     callbacks = Callbacks(client, store, config)
     client.add_event_callback(callbacks.message, (RoomMessageText,))
@@ -102,6 +102,7 @@ async def main():
             # Sleep so we don't bombard the server with login requests
             sleep(15)
         finally:
+     
             # Make sure to close the client connection on disconnect
             await client.close()
 

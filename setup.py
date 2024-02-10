@@ -31,6 +31,8 @@ setup(
     description="Un robot qui vous veut du bien",
     packages=find_packages(exclude=["tests", "tests.*"]),
     install_requires=[
+        "GitPython",
+        "amicus_interfaces",
         "matrix-nio[e2e]>=0.10.0",
         "Markdown>=3.1.1",
         "PyYAML>=5.1.2",

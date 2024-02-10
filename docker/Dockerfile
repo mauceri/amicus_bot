@@ -64,12 +64,10 @@ RUN mkdir -p /src/amicus_bot
 COPY amicus_bot/__init__.py /src/amicus_bot/
 COPY README.md amicus-bot /src/
 
-RUN pip install psycopg2-binary
-
 RUN apt-get update && apt-get install -y curl build-essential pkg-config
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
-ENV PYTHONPATH="/src/amicus_bot:/src/plugins:${PYTHONPATH}"
+#RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+#ENV PATH="/root/.cargo/bin:${PATH}"
+#ENV PYTHONPATH="/src/amicus_bot:/src/plugins:/src/plugins/perroquet:${PYTHONPATH}"
 
 # Build the dependencies
 COPY setup.py /src/setup.py
@@ -78,8 +76,9 @@ RUN pip install --prefix="/python-libs" --no-warn-script-location "/src/.[postgr
 # Now copy the source code
 COPY *.py *.md /src/
 COPY amicus_bot/*.py /src/amicus_bot/
-COPY plugins/*.py /src/plugins/
-COPY interfaces/*.py /src/interfaces/
+COPY plugins/ /src/plugins/
+
+#COPY interfaces/*.py /src/interfaces/
 
 # And build the final module
 RUN pip install --prefix="/python-libs" --no-warn-script-location "/src/.[postgres]"
@@ -102,6 +101,7 @@ COPY --from=builder /usr/local/lib/libolm* /usr/local/lib/
 RUN apt-get update && apt-get install -y libpq-dev
 RUN apt-get install -y libstdc++6
 RUN pip install matrix-nio[e2e]
+RUN pip install amicus_interfaces
 
 # Specify a volume that holds the config file, SQLite3 database,
 # and the matrix-nio store

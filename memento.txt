@@ -1,0 +1,50 @@
+@mauceric:www.amicus-electrum.xyz
+
+{"user_id":"@mauceric:www.amicus-electrum.xyz","access_token":"syt_bWF1Y2VyaWM_XqoFkVKgEdypzVUAMaKI_16vp5c","home_server":"www.amicus-electrum.xyz","device_id":"PTQGLYGUNR"}
+
+
+{"user_id":"@amicus:www.amicus-electrum.xyz","access_token":"syt_YW1pY3Vz_LwUdqVQaMVVeyIVmSbiO_1fXEME","home_server":"www.amicus-electrum.xyz","device_id":"VRWJRTWRRP"}%    
+
+{"user_id":"@amicus:www.amicus-electrum.xyz","access_token":"syt_YW1pY3Vz_OXbGXcoNjEycaxfvSEYI_2e4bze","home_server":"www.amicus-electrum.xyz","device_id":"EXTBFKFCYW"}
+
+2024-02-07 11:09:56 2024-02-07 10:09:56,987 | nio.responses [WARNING] Error validating response: 'one_time_key_counts' is a required property
+2024-02-07 11:10:06 2024-02-07 10:10:06,077 | nio.crypto.log [WARNING] Received a undecryptable Megolm event from a device with no Olm sessions: @mauceric:synapse.amicus-electrum.xyz YCVZFHDJJC
+2024-02-07 11:10:06 2024-02-07 10:10:06,077 | nio.crypto.log [WARNING] Error decrypting megolm event, no session found with session id Rb6z+zXjK5EmIoO2ajjOGxZD6vu+OrNXFhVhOm6ww2U for room !XzTFGXUvCaVEFsRPSx:synapse.amicus-electrum.xyz
+
+
+2024-02-07 11:13:08 2024-02-07 10:13:08,580 | nio.rooms [INFO] Room !RzLKuvRZOebZQNRSRB:synapse.amicus-electrum.xyz handling event of type RoomNameEvent
+2024-02-07 11:13:08 2024-02-07 10:13:08,580 | nio.crypto.log [WARNING] Received a undecryptable Megolm event from a unknown device: @mauceric:synapse.amicus-electrum.xyz YCVZFHDJJC
+2024-02-07 11:13:08 2024-02-07 10:13:08,580 | nio.crypto.log [WARNING] Error decrypting megolm event, no session found with session id amnvQZuw/WeasJLgWe5t1Jq/0PVYCrAIzw4waTVu4d4 for room !RzLKuvRZOebZQNRSRB:synapse.amicus-electrum.xyz
+2024-02-07 11:13:08 2024-02-07 10:13:08,581 | nio.rooms [INFO] Room !RzLKuvRZOebZQNRSRB:synapse.amicus-electrum.xyz handling event of type MegolmEvent
+2024-02-07 11:13:08 2024-02-07 10:13:08,581 | nio.crypto.log [WARNING] Received a undecryptable Megolm event from a unknown device: @amicus:synapse.amicus-electrum.xyz ABCDEFGHIJ
+2024-02-07 11:13:08 2024-02-07 10:13:08,581 | nio.crypto.log [WARNING] Error decrypting megolm event, no session found with session id S8NeXWCTEh9v3UvW+YbjVI5/cnAe2rzoYJiBAjEfSuc for room !RzLKuvRZOebZQNRSRB:synapse.amicus-electrum.xyz
+
+
+docker volume create --opt type=none --opt o=bind --opt device="/Users/mauceric/PRG/amicus-bot/data" amicus_data_volume
+docker run -it --rm --mount type=volume,src=amicus_data_volume,dst=/data ubuntu bash 
+
+https://synapse.amicus-electrum.xyz
+
+@amicus:synapse.amicus-electrum.xyz
+
+
+docker build -t mauceric/amicus_bot -f docker/Dockerfile .
+
+détruire synapse
+docker volume rm synapse-data
+docker run -it --rm --mount type=volume,src=synapse-data,dst=/data -e SYNAPSE_SERVER_NAME=synapse.amicus-electrum.xyz -e SYNAPSE_REPORT_STATS=yes matrixdotorg/synapse:latest generate
+
+docker run -it --rm --mount type=volume,src=synapse-data,dst=/data ubuntu bash                               
+root@d5fcfdf64bf7:/# chmod +r /data/synapse.amicus-electrum.xyz.signing.key 
+
+
+docker run -d --name synapse --mount type=volume,src=synapse-data,dst=/data -p 8008:8008 matrixdotorg/synapse:latest
+
+docker exec -it synapse register_new_matrix_user -u mauceric -p is0t0pie -c /data/homeserver.yaml http://192.168.1.23:8008
+
+docker exec -it synapse register_new_matrix_user -u amicus -p is0t0pie -c /data/homeserver.yaml http://192.168.1.23:8008
+
+
+docker-compose -f ./docker/docker-compose.yml up amicus_bot -d
+
+

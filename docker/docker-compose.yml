@@ -11,6 +11,8 @@ services:
   amicus_bot:
     image: mauceric/amicus_bot
     restart: always
+    environment:
+      - ANY_SCALE_API_KEY=${ANY_SCALE_API_KEY}
     volumes:
       - amicus_data_volume:/data
     # Used for allowing connections to homeservers hosted on the host machine

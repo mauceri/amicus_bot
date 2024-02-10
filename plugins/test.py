@@ -1,5 +1,5 @@
 import logging
-from amicus_bot.interfaces import IObserver, IObservable, IPlugin
+from amicus_interfaces import IObserver, IObservable, IPlugin
 from nio.rooms import MatrixRoom
 from nio.events.room_events import RoomMessageText
 from amicus_bot.callbacks import Callbacks
@@ -11,9 +11,9 @@ class Echo(IObserver):
     def __init__(self,observable:Callbacks=None):
         self.observable =observable
 
-    def notify(self,room:MatrixRoom, event:RoomMessageText, msg:str):
+    async def notify(self,room:MatrixRoom, event:RoomMessageText, msg:str):
         logger.info(f"***************************** L'utilisateur {event.sender} a écrit {msg} depuis ls salon {room.name}")
-        self.observable.notify(room,f"L'utilisateur {event.sender} a écrit {msg} depuis le salon {room.name}")
+        await self.observable.notify(room,event,f"L'utilisateur {event.sender} a écrit {msg} depuis le salon {room.name}")
 
     def prefix(self):
         return "!echo"

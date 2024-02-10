@@ -9,6 +9,9 @@ env3/
 # Bot local files
 *.db
 store/
+build/
+plugins/
+plugins_env/
 
 # Config file
 config.yaml

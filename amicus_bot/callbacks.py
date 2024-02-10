@@ -1,15 +1,18 @@
 import importlib
 import logging
+import os
+import sys
+import git
+import subprocess
+import sys
 
 from nio import JoinError
 from nio.events.room_events import RoomMessageText
 from nio.rooms import MatrixRoom
 
-from amicus_bot.bot_commands import Command
 from amicus_bot.chat_functions import send_text_to_room
-from amicus_bot.message_responses import Message
 
-from amicus_bot.interfaces import IObservable, IObserver
+from amicus_interfaces import IObservable, IObserver
 
 
 logger = logging.getLogger(__name__)
@@ -30,15 +33,31 @@ class Callbacks(IObservable):
         self.config = config
         self.command_prefix = config.command_prefix
         self.observers = {}
-        logger.info(f"****************** About to load plugins")
+        logger.info(f"****************** Loading plugins")
         self.load_plugin("plugins.test")
+        if os.path.isdir("/plugins/perroquet"):
+            print(f"*********************Le répertoire plugins/perroquet existe.")
+        else:
+            print(f"*********************Le répertoire plugins/perroquet n'existe pas.")
+            git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
+        subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
+        self.load_plugin("perroquet")
         logger.info(f"****************** Plugins loaded")
 
     def load_plugin(self,name:str):
-        module = importlib.import_module(name)
-        plugin = module.Plugin(self)  # Crée une instance de Echo
-        plugin.start()
-        return plugin
+        print("Chemin d'accès actuel:", sys.path)
+        chemin_absolu = os.path.abspath("plugins")
+        if chemin_absolu not in sys.path:
+            sys.path.append(chemin_absolu)
+        print("Chemin d'accès mis à jour:", sys.path)
+        print(f"********************************* Dans load_plugin {name}")
+        try:
+            module = importlib.import_module(name)
+            plugin = module.Plugin(self)  
+            plugin.start()
+            return plugin
+        except Exception:
+            raise Exception(f"Erreur {name}")
     
     def subscribe(self, observer: IObserver):
         logger.info(f"***************************Subscribe {observer.prefix()}")
@@ -47,10 +66,9 @@ class Callbacks(IObservable):
     def unsubscribe(self, observer: IObserver):
         del self.observers[observer.prefix()]
 
-    async def notify(self,room:MatrixRoom, message:str):
+    async def notify(self,room:MatrixRoom, event:RoomMessageText, message:str):
         logger.info(f"***************************Notification du message {message}")
-        await send_text_to_room(self.client,room,message)
-
+        await send_text_to_room(self.client,room.room_id,message)
 
     async def message(self, room, event):
         """Callback for when a message event is received
@@ -83,14 +101,15 @@ class Callbacks(IObservable):
         msg = ' '.join(l[1:])
         
         #si un objet est indexé par le préfixe de la commande on l'utilise
+        print(f"****************************commande = {cmd1} et observers = {self.observers}")
         o = None;
         try:
             o = self.observers[cmd1]
         except:
-            logger.info(f"****************************** {cmd1} not found")
+            logger.warning(f"****************************** {cmd1} not found")
             return
         else:
-            o.notify(room,event,msg)
+            await o.notify(room,event,msg)
         
         
 
