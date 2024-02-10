@@ -11,9 +11,9 @@ class Echo(IObserver):
     def __init__(self,observable:Callbacks=None):
         self.observable =observable
 
-    async def notify(self,room:MatrixRoom, event:RoomMessageText, msg:str):
+    def notify(self,room:MatrixRoom, event:RoomMessageText, msg:str):
         logger.info(f"***************************** L'utilisateur {event.sender} a écrit {msg} depuis ls salon {room.name}")
-        await self.observable.notify(room,f"L'utilisateur {event.sender} a écrit {msg} depuis le salon {room.name}")
+        self.observable.notify(room,f"L'utilisateur {event.sender} a écrit {msg} depuis le salon {room.name}")
 
     def prefix(self):
         return "!echo"
