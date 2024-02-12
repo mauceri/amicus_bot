@@ -41,20 +41,24 @@ class Callbacks(IObservable):
         with open("/data/plugins.yaml", 'r') as fichier:
                 contenu = yaml.safe_load(fichier)
                 plugins = contenu['plugins']
+                
                 for plugin in plugins:
+                    name = plugin['name']
+                    url = plugin['url']
+                    folder = "/plugins/"+name
+                    print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}")
                     if plugin['enabled']:
-                        print(f"++++++++++++++++++++++++++++++{plugin['name']} is enabled")
-                        if os.path.isdir("/plugins/"+plugin['name']):
-                            shutil.rmtree("/plugins/"+plugin['name'])
-                        git.Repo.clone_from(plugin['url'], "/plugins/"+plugin['name'])
-                        subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/"+plugin['name']])
+                        print(f"++++++++++++++++++++++++++++++{name} is enabled")
+                        if os.path.isdir(folder):
+                            shutil.rmtree(folder)
+                        git.Repo.clone_from(url, folder)
+                        subprocess.run([sys.executable, "-m", "pip", "install", "-e", folder])
         
-                        self.load_plugin(plugin['name'])
-                        logger.info(f"****************** Plugin {plugin['name']} loaded")
-
-
+                        r = self.load_plugin(name)
+                        if r != None :
+                            logger.info(f"****************** Plugin {name} loaded")
                     else:
-                        print(f"++++++++++++++++++++++++++++++{plugin['name']} is disabled")
+                        print(f"++++++++++++++++++++++++++++++{name} is disabled")
 
 
 
@@ -66,7 +70,7 @@ class Callbacks(IObservable):
         # subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
         
         # self.load_plugin("perroquet")
-        logger.info(f"****************** Plugins loaded")
+        #logger.info(f"****************** Plugins loaded")
 
     def load_plugin(self,name:str):
         print(f"********************************* Dans load_plugin {name}")
@@ -76,7 +80,9 @@ class Callbacks(IObservable):
             plugin.start()
             return plugin
         except Exception:
-            raise Exception(f"Erreur {name}")
+            raise Exception
+        else:
+            return None
     
     def subscribe(self, observer: IObserver):
         logger.info(f"***************************Subscribe {observer.prefix()}")
