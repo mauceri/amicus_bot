@@ -10,6 +10,7 @@ import sys
 from nio import JoinError
 from nio.events.room_events import RoomMessageText
 from nio.rooms import MatrixRoom
+import yaml
 
 from amicus_bot.chat_functions import send_text_to_room
 
@@ -35,14 +36,36 @@ class Callbacks(IObservable):
         self.command_prefix = config.command_prefix
         self.observers = {}
         logger.info(f"****************** Loading plugins")
+
         self.load_plugin("plugins.test")
-        if os.path.isdir("/plugins/perroquet"):
-            #print(f"*********************Le répertoire plugins/perroquet existe.")
-            shutil.rmtree("/plugins/perroquet")
-        git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
-        subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
+        with open("/data/plugins.yaml", 'r') as fichier:
+                contenu = yaml.safe_load(fichier)
+                plugins = contenu['plugins']
+                for plugin in plugins:
+                    if plugin['enabled']:
+                        print(f"++++++++++++++++++++++++++++++{plugin['name']} is enabled")
+                        if os.path.isdir("/plugins/"+plugin['name']):
+                            shutil.rmtree("/plugins/"+plugin['name'])
+                        git.Repo.clone_from(plugin['url'], "/plugins/"+plugin['name'])
+                        subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/"+plugin['name']])
         
-        self.load_plugin("perroquet")
+                        self.load_plugin(plugin['name'])
+                        logger.info(f"****************** Plugin {plugin['name']} loaded")
+
+
+                    else:
+                        print(f"++++++++++++++++++++++++++++++{plugin['name']} is disabled")
+
+
+
+        
+        # if os.path.isdir("/plugins/perroquet"):
+        #     #print(f"*********************Le répertoire plugins/perroquet existe.")
+        #     shutil.rmtree("/plugins/perroquet")
+        # git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
+        # subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
+        
+        # self.load_plugin("perroquet")
         logger.info(f"****************** Plugins loaded")
 
     def load_plugin(self,name:str):
