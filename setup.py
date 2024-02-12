@@ -32,6 +32,7 @@ setup(
     packages=find_packages(exclude=["tests", "tests.*"]),
     install_requires=[
         "GitPython",
+        "watchdog",
         "amicus_interfaces",
         "matrix-nio[e2e]>=0.10.0",
         "Markdown>=3.1.1",

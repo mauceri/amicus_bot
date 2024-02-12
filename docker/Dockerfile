@@ -26,6 +26,10 @@ ARG PYTHON_VERSION=3.8
 #FROM docker.io/python:${PYTHON_VERSION}-alpine3.11 as builder
 FROM python:${PYTHON_VERSION}-buster as builder
 
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get clean
+
 RUN pip install --upgrade pip
 ##
 ## Build libolm for matrix-nio e2e support
@@ -100,8 +104,9 @@ COPY --from=builder /usr/local/lib/libolm* /usr/local/lib/
 # Install any native runtime dependencies
 RUN apt-get update && apt-get install -y libpq-dev
 RUN apt-get install -y libstdc++6
-RUN pip install matrix-nio[e2e]
-RUN pip install amicus_interfaces
+#RUN pip install matrix-nio[e2e]
+#RUN pip install amicus_interfaces
+#RUN pip install watchdog
 
 # Specify a volume that holds the config file, SQLite3 database,
 # and the matrix-nio store

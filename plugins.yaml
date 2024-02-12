@@ -1,0 +1,11 @@
+plugins:
+  - name : "perroquet"
+    url : "https://github.com/mauceri/perroquet"
+    enabled : true
+  - name : "commandes"
+    url : "https://github.com/mauceri/amicus_bot_commandes"
+    enabled : false
+  - name : "raconte_moi_une_histoire"
+    url : "https://github.com/mauceri/amicus_bot_raconte_une_histoire"
+    enabled : false
+  

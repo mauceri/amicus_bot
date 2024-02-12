@@ -1,6 +1,7 @@
 import importlib
 import logging
 import os
+import shutil
 import sys
 import git
 import subprocess
@@ -37,10 +38,8 @@ class Callbacks(IObservable):
         self.load_plugin("plugins.test")
         if os.path.isdir("/plugins/perroquet"):
             #print(f"*********************Le répertoire plugins/perroquet existe.")
-            pass
-        else:
-            #print(f"*********************Le répertoire plugins/perroquet n'existe pas.")
-            git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
+            shutil.rmtree("/plugins/perroquet")
+        git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
         subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
         
         self.load_plugin("perroquet")
