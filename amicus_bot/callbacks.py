@@ -36,20 +36,17 @@ class Callbacks(IObservable):
         logger.info(f"****************** Loading plugins")
         self.load_plugin("plugins.test")
         if os.path.isdir("/plugins/perroquet"):
-            print(f"*********************Le répertoire plugins/perroquet existe.")
+            #print(f"*********************Le répertoire plugins/perroquet existe.")
+            pass
         else:
-            print(f"*********************Le répertoire plugins/perroquet n'existe pas.")
+            #print(f"*********************Le répertoire plugins/perroquet n'existe pas.")
             git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
         subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
+        
         self.load_plugin("perroquet")
         logger.info(f"****************** Plugins loaded")
 
     def load_plugin(self,name:str):
-        print("Chemin d'accès actuel:", sys.path)
-        chemin_absolu = os.path.abspath("plugins")
-        if chemin_absolu not in sys.path:
-            sys.path.append(chemin_absolu)
-        print("Chemin d'accès mis à jour:", sys.path)
         print(f"********************************* Dans load_plugin {name}")
         try:
             module = importlib.import_module(name)
@@ -106,29 +103,18 @@ class Callbacks(IObservable):
         try:
             o = self.observers[cmd1]
         except:
-            logger.warning(f"****************************** {cmd1} not found")
-            return
-        else:
+            logger.warning(f"****************************** {cmd1} introuvable essayons perroquet")
+            try:
+                o = self.observers["!coco"]
+            except:
+                logger.warning(f"****************************** perroquet n'est pas chargé")
+                return
+        if o != None:
             await o.notify(room,event,msg)
+        else:
+            logger.warning(f"****************************** perroquet n'est pas chargé")
         
         
-
-        # # Process as message if in a public room without command prefix
-        # has_command_prefix = msg.startswith(self.command_prefix)
-        # if not has_command_prefix and not room.is_group:
-        #     # General message listener
-        #     message = Message(self.client, self.store, self.config, msg, room, event)
-        #     await message.process()
-        #     return
-
-        # # Otherwise if this is in a 1-1 with the bot or features a command prefix,
-        # # treat it as a command
-        # if has_command_prefix:
-        #     # Remove the command prefix
-        #     msg = msg[len(self.command_prefix) :]
-
-        # command = Command(self.client, self.store, self.config, msg, room, event)
-        # await command.process()
 
     async def invite(self, room, event):
         """Callback for when an invite is received. Join the room specified in the invite"""
