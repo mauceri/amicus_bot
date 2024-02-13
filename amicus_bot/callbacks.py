@@ -78,7 +78,8 @@ class Callbacks(IObservable):
         
     def unload_plugin(self, plugin_name):
         if plugin_name in self.plugins:
-            self.plugins[plugin_name].deactivate()  # Méthode pour nettoyer le plugin
+
+            self.plugins[plugin_name].stop()  # Méthode pour nettoyer le plugin
             del sys.modules[self.plugins[plugin_name].__module__]
             del self.plugins[plugin_name]
 
