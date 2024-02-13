@@ -35,9 +35,10 @@ class Callbacks(IObservable):
         self.config = config
         self.command_prefix = config.command_prefix
         self.observers = {}
+        self.plugins = {}
         logger.info(f"****************** Loading plugins")
 
-        self.load_plugin("plugins.test")
+        #self.load_plugin("plugins.test")
         with open("/data/plugins.yaml", 'r') as fichier:
                 contenu = yaml.safe_load(fichier)
                 plugins = contenu['plugins']
@@ -49,41 +50,42 @@ class Callbacks(IObservable):
                     print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}")
                     if plugin['enabled']:
                         print(f"++++++++++++++++++++++++++++++{name} is enabled")
-                        if os.path.isdir(folder):
-                            shutil.rmtree(folder)
-                        git.Repo.clone_from(url, folder)
-                        subprocess.run([sys.executable, "-m", "pip", "install", "-e", folder])
-        
-                        r = self.load_plugin(name)
-                        if r != None :
-                            logger.info(f"****************** Plugin {name} loaded")
+                        self.load_plugin(name,url,folder)
                     else:
                         print(f"++++++++++++++++++++++++++++++{name} is disabled")
+                        self.unload_plugin(name)
 
 
-
-        
-        # if os.path.isdir("/plugins/perroquet"):
-        #     #print(f"*********************Le répertoire plugins/perroquet existe.")
-        #     shutil.rmtree("/plugins/perroquet")
-        # git.Repo.clone_from("https://github.com/mauceri/perroquet", "/plugins/perroquet")
-        # subprocess.run([sys.executable, "-m", "pip", "install", "-e", "/plugins/perroquet"])
-        
-        # self.load_plugin("perroquet")
-        #logger.info(f"****************** Plugins loaded")
-
-    def load_plugin(self,name:str):
-        print(f"********************************* Dans load_plugin {name}")
+    def load_plugin(self, plugin_name, plugin_url, plugin_path):
         try:
-            module = importlib.import_module(name)
-            plugin = module.Plugin(self)  
-            plugin.start()
-            return plugin
-        except Exception:
+            print(f"********************************* Load {plugin_name}")
+            if plugin_name in self.plugins:
+                self.unload_plugin(plugin_name)
+            if os.path.isdir(plugin_path):
+                shutil.rmtree(plugin_path)
+            data_path = "/data/"+plugin_name
+            if not os.path.isdir(data_path):
+                os.mkdir(data_path)
+            git.Repo.clone_from(plugin_url, plugin_path)
+            subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
+            print(f"********************************* Import module {plugin_name}")
+            module = importlib.import_module(plugin_name)
+            self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
+            self.plugins[plugin_name].start()
+        except Exception as err:
+            logger.debug(f"Load plugin {err}")
             raise Exception
-        else:
-            return None
-    
+        
+    def unload_plugin(self, plugin_name):
+        if plugin_name in self.plugins:
+            self.plugins[plugin_name].deactivate()  # Méthode pour nettoyer le plugin
+            del sys.modules[self.plugins[plugin_name].__module__]
+            del self.plugins[plugin_name]
+
+    def reload_plugin(self, plugin_name, plugin_path):
+        self.load_plugin(plugin_name, plugin_path)
+
+     
     def subscribe(self, observer: IObserver):
         logger.info(f"***************************Subscribe {observer.prefix()}")
         self.observers[observer.prefix()] = observer
