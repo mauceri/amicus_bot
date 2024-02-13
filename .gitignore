@@ -6,15 +6,16 @@ env/
 env3/
 .env/
 
+
 # Bot local files
 *.db
 store/
 build/
 plugins/
 plugins_env/
-
 data/
 dist/
+
 # Config file
 config.yaml
 

@@ -1,4 +1,7 @@
 plugins:
+  - name : "test"
+    url : "https://github.com/mauceri/amicus-plugin-test"
+    enabled : true
   - name : "perroquet"
     url : "https://github.com/mauceri/perroquet"
     enabled : true

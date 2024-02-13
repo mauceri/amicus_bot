@@ -37,9 +37,10 @@ class Callbacks(IObservable):
         self.observers = {}
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
+        self.update_plugins()
 
-        #self.load_plugin("plugins.test")
-        with open("/data/plugins.yaml", 'r') as fichier:
+    def update_plugins(self):
+         with open("/data/plugins.yaml", 'r') as fichier:
                 contenu = yaml.safe_load(fichier)
                 plugins = contenu['plugins']
                 
@@ -55,7 +56,7 @@ class Callbacks(IObservable):
                         print(f"++++++++++++++++++++++++++++++{name} is disabled")
                         self.unload_plugin(name)
 
-
+       
     def load_plugin(self, plugin_name, plugin_url, plugin_path):
         try:
             print(f"********************************* Load {plugin_name}")
