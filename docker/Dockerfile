@@ -109,7 +109,7 @@ RUN apt-get install -y libstdc++6
 #RUN pip install watchdog
 
 # Specify a volume that holds the config file, SQLite3 database,
-# and the matrix-nio store
+# the matrix-nio store, and data's plugins
 VOLUME ["/data"]
 
 # Start the bot
