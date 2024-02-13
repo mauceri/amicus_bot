@@ -37,10 +37,11 @@ class Callbacks(IObservable):
         self.observers = {}
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
+        self.path_yaml_plugin = "/data/plugins.yaml"
         self.update_plugins()
 
     def update_plugins(self):
-         with open("/data/plugins.yaml", 'r') as fichier:
+         with open(self.path_yaml_plugin, 'r') as fichier:
                 contenu = yaml.safe_load(fichier)
                 plugins = contenu['plugins']
                 
