@@ -33,7 +33,7 @@ setup(
     install_requires=[
         "GitPython",
         "watchdog",
-        "amicus_interfaces",
+        "amicus_interfaces>=0.1.2",
         "matrix-nio[e2e]>=0.10.0",
         "Markdown>=3.1.1",
         "PyYAML>=5.1.2",

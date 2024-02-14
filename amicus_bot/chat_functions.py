@@ -1,7 +1,7 @@
 import logging
 
 from markdown import markdown
-from nio import SendRetryError
+from nio import SendRetryError, UploadResponse
 
 logger = logging.getLogger(__name__)
 
@@ -42,3 +42,30 @@ async def send_text_to_room(
         )
     except SendRetryError:
         logger.exception(f"Unable to send message response to {room_id}")
+
+
+async def send_file(client, room_id, file_path, file_name):
+    # Ouvrir le fichier et lire son contenu
+    with open(file_path, "rb") as f:
+        file_content = f.read()
+
+    # Téléverser le fichier sur le serveur Matrix
+    response = await client.upload(file_content, content_type="application/octet-stream", filename=file_name)
+    if isinstance(response, UploadResponse):
+        # Préparer le contenu du message de type fichier
+        content = {
+            "body": file_name,  # Nom du fichier affiché dans le salon
+            "info": {
+                "size": len(file_content),
+                # Ajoutez d'autres informations si nécessaire, comme "mimetype"
+            },
+            "msgtype": "m.file",
+            "url": response.content_uri,  # URI du fichier téléversé
+        }
+
+        # Envoyer le message avec l'attachement dans le salon
+        await client.room_send(
+            room_id=room_id,
+            message_type="m.room.message",
+            content=content
+        )

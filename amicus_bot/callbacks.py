@@ -75,8 +75,8 @@ class Callbacks(IObservable):
             self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
             self.plugins[plugin_name].start()
         except Exception as err:
-            logger.debug(f"Load plugin {err}")
-            raise Exception
+            logger.debug(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Load plugin {err}")
+            raise
         
     def unload_plugin(self, plugin_name):
         if plugin_name in self.plugins:
@@ -96,11 +96,11 @@ class Callbacks(IObservable):
     def unsubscribe(self, observer: IObserver):
         del self.observers[observer.prefix()]
 
-    async def notify(self,room:MatrixRoom, event:RoomMessageText, message:str):
-        logger.info(f"***************************Notification du message {message}")
+    async def notify(self,room:MatrixRoom, event:RoomMessageText, message:str,filepath: str, filename:str):
+        logger.info(f"***************************Notification du message {message} {filepath} {filename}")
         await send_text_to_room(self.client,room.room_id,message)
 
-    async def message(self, room, event):
+    async def message(self, room:MatrixRoom, event:RoomMessageText):
         """Callback for when a message event is received
 
         Args:
