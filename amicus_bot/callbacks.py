@@ -8,11 +8,18 @@ import subprocess
 import sys
 
 from nio import JoinError
-from nio.events.room_events import RoomMessageText
+from nio.events.room_events import RoomMessageText, RoomMessageMedia, RoomEncryptedFile
 from nio.rooms import MatrixRoom
 import yaml
 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+from Crypto.Util import Counter
+import base64
+
+
 from amicus_bot.chat_functions import send_text_to_room
+from amicus_bot.chat_functions import send_file_to_room
 
 from amicus_interfaces import IObservable, IObserver
 
@@ -96,22 +103,14 @@ class Callbacks(IObservable):
     def unsubscribe(self, observer: IObserver):
         del self.observers[observer.prefix()]
 
-    async def notify(self,room:MatrixRoom, event:RoomMessageText, message:str,filepath: str, filename:str):
+    async def notify(self,room:MatrixRoom, event:RoomMessageText, message:str,filepath: str=None, filename:str=None):
         logger.info(f"***************************Notification du message {message} {filepath} {filename}")
-        await send_text_to_room(self.client,room.room_id,message)
+        if filename != None:
+            await send_file_to_room(self.client,room.room_id,filepath,filename)
+        else:
+            await send_text_to_room(self.client,room.room_id,message)
 
     async def message(self, room:MatrixRoom, event:RoomMessageText):
-        """Callback for when a message event is received
-
-        Args:
-            room (nio.rooms.MatrixRoom): The room the event came from
-
-            event (nio.events.room_events.RoomMessageText): The event defining the message
-
-        """
-
-
-        
         # Extract the message text
         msg = event.body
         # Ignore messages from ourselves
@@ -147,7 +146,68 @@ class Callbacks(IObservable):
         else:
             logger.warning(f"****************************** perroquet n'est pas chargé")
         
-        
+
+    def padding_for_b64decode(self,s):
+        # Calcule le nombre de caractères de remplissage manquants
+        padding = 4 - len(s) % 4
+        if padding:
+            s += '=' * padding
+        return s
+
+    async def message_media(self, room:MatrixRoom,  event:RoomEncryptedFile):
+        logger.info(f"****************************** dans message_media {event.body }")
+        if isinstance(event, RoomEncryptedFile):
+            file_url = event.url
+            file_name = event.body  # Nom du fichier tel qu'envoyé dans le message
+
+            devent = None
+
+            logger.info(f"****************************** Avant téléchargement {file_url} {file_name}")
+            # Télécharger le fichier
+            file_response = await self.client.download(file_url)
+            logger.info(f"****************************** Après téléchargement file_response = {file_response}")
+
+            encrypted_content = file_response.body
+            # Informations de chiffrement extraites de l'événement
+            logger.info(f"£££££££££££££££££££££££££££££££££££££££ key = {event.key}")
+            cipher = None
+            key_bytes = None
+            iv_bytes = None
+
+            try:
+                k = event.key["k"]
+                iv = event.iv
+                padded_key = self.padding_for_b64decode(k)
+                key_bytes = base64.urlsafe_b64decode(padded_key)
+            except Exception as e:
+                logger.warning(f"!!!!!!!!!!!!!!!!!!!!!! Error urlsafe_b64decode(k) {e}")
+                raise
+            try :
+                padded_iv = self.padding_for_b64decode(iv)
+                iv_bytes = base64.urlsafe_b64decode(padded_iv)
+            except Exception as e:
+                logger.warning(f"!!!!!!!!!!!!!!!!!!!!!! Error urlsafe_b64decode(iv) {e}")
+                raise
+            try :
+                # Pour AES.MODE_CTR, PyCryptodome nécessite un objet Counter.
+                # La fonction Counter prend comme argument initial_value qui doit être un entier.
+                # Vous devez convertir iv_bytes en un entier pour l'utiliser comme valeur initiale du compteur.
+                iv_int = int.from_bytes(iv_bytes, byteorder='big')
+
+                # Créer un objet Counter
+                ctr = Counter.new(128, initial_value=iv_int)
+
+                cipher = AES.new(key_bytes, AES.MODE_CTR, counter=ctr)
+            except Exception as e:
+                logger.warning(f"!!!!!!!!!!!!!!!!!!!!!! Error AES.new {e}")
+                raise
+
+            decrypted_content = cipher.decrypt(encrypted_content)
+            logger.info(f"£££££££££££££££££££££££££££££££££££££££ Contenu décrypté : {decrypted_content}")
+            # Sauvegarder le fichier localement
+            with open("/data/"+file_name, "wb") as f:
+                f.write(decrypted_content)
+            self.update_plugins()
 
     async def invite(self, room, event):
         """Callback for when an invite is received. Join the room specified in the invite"""

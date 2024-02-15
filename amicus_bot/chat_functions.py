@@ -1,4 +1,6 @@
 import logging
+import os
+import aiofiles
 
 from markdown import markdown
 from nio import SendRetryError, UploadResponse
@@ -44,28 +46,32 @@ async def send_text_to_room(
         logger.exception(f"Unable to send message response to {room_id}")
 
 
-async def send_file(client, room_id, file_path, file_name):
-    # Ouvrir le fichier et lire son contenu
-    with open(file_path, "rb") as f:
-        file_content = f.read()
+async def send_file_to_room(client, room_id, file_path, file_name):
+    # Utiliser aiofiles pour ouvrir le fichier de manière asynchrone
+    async with aiofiles.open(file_path, "rb") as f:
+        # Téléverser le fichier sur le serveur Matrix
+        logger.info(f"***************************Envoi {file_name} sur Matrix")
+        response_tuple  = await client.upload(f, content_type="application/octet-stream", filename=file_name)
+       
+        if response_tuple  and isinstance(response_tuple[0], UploadResponse):
+            response = response_tuple[0]
+            # Préparer le contenu du message de type fichier
+            content = {
+                "body": file_name,  # Nom du fichier affiché dans le salon
+                "info": {
+                    "size": os.path.getsize(file_path),
+                    # Ajoutez d'autres informations si nécessaire, comme "mimetype"
+                },
+                "msgtype": "m.file",
+                "url": response.content_uri,  # URI du fichier téléversé
+            }
 
-    # Téléverser le fichier sur le serveur Matrix
-    response = await client.upload(file_content, content_type="application/octet-stream", filename=file_name)
-    if isinstance(response, UploadResponse):
-        # Préparer le contenu du message de type fichier
-        content = {
-            "body": file_name,  # Nom du fichier affiché dans le salon
-            "info": {
-                "size": len(file_content),
-                # Ajoutez d'autres informations si nécessaire, comme "mimetype"
-            },
-            "msgtype": "m.file",
-            "url": response.content_uri,  # URI du fichier téléversé
-        }
-
-        # Envoyer le message avec l'attachement dans le salon
-        await client.room_send(
-            room_id=room_id,
-            message_type="m.room.message",
-            content=content
-        )
+            # Envoyer le message avec l'attachement dans le salon
+            logger.info(f"***************************Envoi {file_name}")
+            await client.room_send(
+                room_id=room_id,
+                message_type="m.room.message",
+                content=content
+            )
+        else:
+            logger.info(f"***************************Quitte {response}")

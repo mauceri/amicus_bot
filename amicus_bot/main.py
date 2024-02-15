@@ -14,6 +14,11 @@ from nio import (
     LocalProtocolError,
     LoginError,
     RoomMessageText,
+    RoomMessageMedia,
+    RoomMessage,
+    MatrixRoom,
+    RoomEncryptedFile,
+    Event,
 )
 
 from amicus_bot.callbacks import Callbacks
@@ -59,7 +64,20 @@ async def main():
     callbacks = Callbacks(client, store, config)
     client.add_event_callback(callbacks.message, (RoomMessageText,))
     client.add_event_callback(callbacks.invite, (InviteMemberEvent,))
-    
+    client.add_event_callback(callbacks.message_media, (RoomEncryptedFile,))
+    async def generic_event_handler(*args):
+        logger.info(f"@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Dans generic_event_handler {args}")
+        if len(args) == 2:  # Événement lié à une salle
+            room, event = args
+            logger.info(f"@@@@@@@@@@@@@@@@@@@@@@@@@ Événement reçu dans la salle {room.room_id}: {type(event)}")
+        elif len(args) == 1:  # Événement non spécifique à une salle
+            event, = args
+            logger.info(f"@@@@@@@@@@@@@@@@@@@@@@@@@@Événement reçu : {type(event)}")
+        else:
+            logger.info("@@@@@@@@@@@@@@@@@@@@@@Nombre inattendu d'arguments reçus par le gestionnaire d'événements")
+
+    client.add_event_callback(generic_event_handler, (Event,))
+
     logger.info(f"****************** callbacks created")
     # Keep trying to reconnect on failure (with some time in-between)
     while True:

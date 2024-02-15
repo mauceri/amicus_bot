@@ -1,7 +1,10 @@
 plugins:
+  - name : "test"
+    url : "https://github.com/mauceri/amicus-plugin-test"
+    enabled : true
   - name : "perroquet"
     url : "https://github.com/mauceri/perroquet"
-    enabled : true
+    enabled : false
   - name : "commandes"
     url : "https://github.com/mauceri/amicus_bot_commandes"
     enabled : false
@@ -11,4 +14,7 @@ plugins:
   - name : "amicus_rag"
     url : "https://github.com/mauceri/amicus_rag"
     enabled : false
+  - name : "comm.plugin"
+    url : "https://github.com/mauceri/mandata-amici"
+    enabled : true
   
