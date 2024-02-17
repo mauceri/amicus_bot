@@ -3,6 +3,7 @@ import logging
 import os
 import shutil
 import sys
+import time
 import git
 import subprocess
 import sys
@@ -45,6 +46,11 @@ class Callbacks(IObservable):
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
         self.path_yaml_plugin = "/data/plugins.yaml"
+        try:
+            os.mkdir("/data/tmp")
+            print(f"Répertoire '/data/tmp' créé avec succès.")
+        except FileExistsError:
+            print(f"Le répertoire '/data/tmp' existe déjà.")
         self.update_plugins()
 
     def update_plugins(self):
@@ -55,19 +61,20 @@ class Callbacks(IObservable):
                 for plugin in plugins:
                     name = plugin['name']
                     url = plugin['url']
-                    folder = "/plugins/"+name
-                    print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}")
+                    package = plugin['package']
+                    folder = "/plugins/"+package
+                    logger.info(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
                     if plugin['enabled']:
-                        print(f"++++++++++++++++++++++++++++++{name} is enabled")
-                        self.load_plugin(name,url,folder)
+                        logger.info(f"++++++++++++++++++++++++++++++{name} is enabled")
+                        self.load_plugin(name,package,url,folder)
                     else:
-                        print(f"++++++++++++++++++++++++++++++{name} is disabled")
+                        logger.info(f"++++++++++++++++++++++++++++++{name} is disabled")
                         self.unload_plugin(name)
 
        
-    def load_plugin(self, plugin_name, plugin_url, plugin_path):
+    def load_plugin(self, plugin_name, package, plugin_url, plugin_path):
         try:
-            print(f"********************************* Load {plugin_name}")
+            logger.info(f"********************************* Load {plugin_name}")
             if plugin_name in self.plugins:
                 self.unload_plugin(plugin_name)
             if os.path.isdir(plugin_path):
@@ -75,10 +82,14 @@ class Callbacks(IObservable):
             data_path = "/data/"+plugin_name
             if not os.path.isdir(data_path):
                 os.mkdir(data_path)
+            self.unload_plugin(plugin_name)
+            sys.path.append("/plugins/")
+            logger.info(f"******************************** sys.path = {sys.path}")
             git.Repo.clone_from(plugin_url, plugin_path)
             subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
-            print(f"********************************* Import module {plugin_name}")
-            module = importlib.import_module(plugin_name)
+            logger.info(f"********************************* Import module {plugin_name}")
+            module = importlib.import_module("."+plugin_name,package=package)
+            logger.info(f"================================================ module = {module}")
             self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
             self.plugins[plugin_name].start()
         except Exception as err:
@@ -107,6 +118,8 @@ class Callbacks(IObservable):
         logger.info(f"***************************Notification du message {message} {filepath} {filename}")
         if filename != None:
             await send_file_to_room(self.client,room.room_id,filepath,filename)
+        elif(message == "!c.reload"):
+            self.update_plugins()
         else:
             await send_text_to_room(self.client,room.room_id,message)
 
@@ -122,7 +135,7 @@ class Callbacks(IObservable):
             f"{room.user_name(event.sender)}: {msg}"
         )
 
-        #logique de la prochaine version
+        
         l = msg.split(' ')
         #le préfixe de la commande est le premier mot
         cmd1 = l[0]
@@ -205,9 +218,13 @@ class Callbacks(IObservable):
             decrypted_content = cipher.decrypt(encrypted_content)
             logger.info(f"£££££££££££££££££££££££££££££££££££££££ Contenu décrypté : {decrypted_content}")
             # Sauvegarder le fichier localement
-            with open("/data/"+file_name, "wb") as f:
-                f.write(decrypted_content)
-            self.update_plugins()
+            try :
+                with open("/data/tmp/"+file_name, "wb") as f:
+                    f.write(decrypted_content)
+            except Exception as e:
+                logger.warning(f"!!!!!!!!!!!!!!!!!!!!!! Erreur écriture fichier {e}")
+            
+            #self.update_plugins()
 
     async def invite(self, room, event):
         """Callback for when an invite is received. Join the room specified in the invite"""

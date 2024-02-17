@@ -76,7 +76,7 @@ async def main():
         else:
             logger.info("@@@@@@@@@@@@@@@@@@@@@@Nombre inattendu d'arguments reçus par le gestionnaire d'événements")
 
-    client.add_event_callback(generic_event_handler, (Event,))
+    #client.add_event_callback(generic_event_handler, (Event,))
 
     logger.info(f"****************** callbacks created")
     # Keep trying to reconnect on failure (with some time in-between)

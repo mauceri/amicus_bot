@@ -3,7 +3,8 @@ import os
 import aiofiles
 
 from markdown import markdown
-from nio import SendRetryError, UploadResponse
+from nio import SendRetryError, UploadResponse, AsyncClient
+from nio.exceptions import OlmUnverifiedDeviceError
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +47,22 @@ async def send_text_to_room(
         logger.exception(f"Unable to send message response to {room_id}")
 
 
+async def fetch_power_levels(client: AsyncClient, room_id: str):
+    room_state = await client.room_state(room_id)
+    for event in room_state:
+        if event.type == "m.room.power_levels":
+            return event.content
+    return None
+
+async def is_admin(client: AsyncClient, room_id: str, user_id: str):
+    power_levels = await fetch_power_levels(client, room_id)
+    if power_levels:
+        user_levels = power_levels.get("users", {})
+        user_level = user_levels.get(user_id, 0)
+        # Considérez un administrateur comme ayant un niveau de pouvoir de 100
+        return user_level == 100
+    return False
+
 async def send_file_to_room(client, room_id, file_path, file_name):
     # Utiliser aiofiles pour ouvrir le fichier de manière asynchrone
     async with aiofiles.open(file_path, "rb") as f:
@@ -56,22 +73,26 @@ async def send_file_to_room(client, room_id, file_path, file_name):
         if response_tuple  and isinstance(response_tuple[0], UploadResponse):
             response = response_tuple[0]
             # Préparer le contenu du message de type fichier
-            content = {
-                "body": file_name,  # Nom du fichier affiché dans le salon
-                "info": {
-                    "size": os.path.getsize(file_path),
-                    # Ajoutez d'autres informations si nécessaire, comme "mimetype"
-                },
-                "msgtype": "m.file",
-                "url": response.content_uri,  # URI du fichier téléversé
-            }
+            try:
+                content = {
+                    "body": file_name,  # Nom du fichier affiché dans le salon
+                    "info": {
+                        "size": os.path.getsize(file_path),
+                        # Ajoutez d'autres informations si nécessaire, comme "mimetype"
+                    },
+                    "msgtype": "m.file",
+                    "url": response.content_uri,  # URI du fichier téléversé
+                }
 
-            # Envoyer le message avec l'attachement dans le salon
-            logger.info(f"***************************Envoi {file_name}")
-            await client.room_send(
-                room_id=room_id,
-                message_type="m.room.message",
-                content=content
-            )
+                # Envoyer le message avec l'attachement dans le salon
+                logger.info(f"***************************Envoi {file_name}")
+                await client.room_send(
+                    room_id=room_id,
+                    message_type="m.room.message",
+                    content=content
+                )
+            except OlmUnverifiedDeviceError as e:
+                logger.error(f"Erreur lors de l'envoi à un dispositif non vérifié: {e}")
+                # Ici, vous pouvez décider de la marche à suivre : logger l'erreur, notifier l'utilisateur, etc.
         else:
             logger.info(f"***************************Quitte {response}")

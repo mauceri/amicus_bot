@@ -1,20 +1,26 @@
 plugins:
   - name : "test"
+    package : "amicus-plugin-test"
     url : "https://github.com/mauceri/amicus-plugin-test"
     enabled : true
   - name : "perroquet"
+    package : "perroquet"
     url : "https://github.com/mauceri/perroquet"
-    enabled : false
+    enabled : true
   - name : "commandes"
+    package : "amicus_bot_commandes"
     url : "https://github.com/mauceri/amicus_bot_commandes"
     enabled : false
   - name : "raconte_moi_une_histoire"
+    package : "amicus_bot_raconte_une_histoire"
     url : "https://github.com/mauceri/amicus_bot_raconte_une_histoire"
     enabled : false
   - name : "amicus_rag"
+    package : "amicus_rag"
     url : "https://github.com/mauceri/amicus_rag"
     enabled : false
   - name : "comm.plugin"
+    package : "mandata-amici"
     url : "https://github.com/mauceri/mandata-amici"
     enabled : true
   
