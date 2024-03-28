@@ -22,9 +22,12 @@
 # We use an initial docker container to build all of the runtime dependencies,
 # then transfer those dependencies to the container we're going to ship,
 # before throwing this one away
+ARG API_KEY
 ARG PYTHON_VERSION=3.8
 #FROM docker.io/python:${PYTHON_VERSION}-alpine3.11 as builder
 FROM python:${PYTHON_VERSION}-buster as builder
+
+RUN echo "${ANY_SCALE_API_KEY}"
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -71,7 +74,7 @@ COPY README.md amicus-bot /src/
 RUN apt-get update && apt-get install -y curl build-essential pkg-config
 #RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 #ENV PATH="/root/.cargo/bin:${PATH}"
-#ENV PYTHONPATH="/src/amicus_bot:/src/plugins:/src/plugins/perroquet:${PYTHONPATH}"
+ENV PYTHONPATH="/src/amicus_bot:/src/plugins:${PYTHONPATH}"
 
 # Build the dependencies
 COPY setup.py /src/setup.py
@@ -94,6 +97,7 @@ RUN pip install --prefix="/python-libs" --no-warn-script-location "/src/.[postgr
 # Create the container we'll actually ship. We need to copy libolm and any
 # python dependencies that we built above to this container
 FROM python:${PYTHON_VERSION}-buster
+ENV ANY_SCALE_API_KEY="esecret_xa4u81rr938asp8am9j6a2t1gb"
 
 # Copy python dependencies from the "builder" container
 COPY --from=builder /python-libs /usr/local

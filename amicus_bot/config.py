@@ -51,6 +51,9 @@ class Config(object):
             handler.setFormatter(formatter)
             logger.addHandler(handler)
 
+        #any_scale
+        self.ANY_SCALE_API_KEY = self._get_cfg(["any_scale", "ANY_SCALE_API_KEY"],required=True)
+
         # Storage setup
         self.store_path = self._get_cfg(["storage", "store_path"], required=True)
 

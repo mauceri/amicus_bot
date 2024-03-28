@@ -36,8 +36,12 @@ async def main():
     else:
         config_path = "config.yaml"
     config = Config(config_path)
-
     logger.info(f"****************** Config file read {config}")
+    logger.info(f"****************** config.ANY_SCALE_API_KEY={config.ANY_SCALE_API_KEY}")
+    os.environ['ANY_SCALE_API_KEY'] = config.ANY_SCALE_API_KEY
+    logger.info(f"****************** ANY_SCALE_API_KEY={os.getenv('ANY_SCALE_API_KEY')}")
+
+
     # Configure the database
     store = Storage(config.database)
 

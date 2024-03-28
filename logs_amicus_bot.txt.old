@@ -1,0 +1,372 @@
+docker logs docker-amicus_bot-1
+2024-03-11 14:42:40,049 | amicus_bot.main [INFO] ****************** Config file read <amicus_bot.config.Config object at 0x7f8b176c70>
+2024-03-11 14:42:40,051 | amicus_bot.storage [INFO] Database initialization of type 'sqlite' complete
+2024-03-11 14:42:40,051 | amicus_bot.main [INFO] ****************** Client @amicus:synapse.amicus-electrum.xyz created
+2024-03-11 14:42:40,052 | amicus_bot.callbacks [INFO] ****************** Loading plugins
+Le répertoire '/data/tmp' existe déjà.
+2024-03-11 14:42:40,063 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = test, folder = /plugins/amicus-plugin-test, url = https://github.com/mauceri/amicus-plugin-test, package=amicus-plugin-test
+2024-03-11 14:42:40,064 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++test is enabled
+2024-03-11 14:42:40,064 | amicus_bot.callbacks [INFO] ********************************* Load test
+2024-03-11 14:42:40,064 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/']
+Obtaining file:///plugins/amicus-plugin-test
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: matrix-nio in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.24.0)
+Requirement already satisfied: amicus_interfaces in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.1.2)
+Requirement already satisfied: h2<5.0.0,>=4.0.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.1.0)
+Requirement already satisfied: aiohttp<4.0.0,>=3.9.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.9.3)
+Requirement already satisfied: aiohttp-socks<0.9.0,>=0.8.4 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.8.4)
+Requirement already satisfied: pycryptodome<4.0.0,>=3.10.1 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.20.0)
+Requirement already satisfied: unpaddedbase64<3.0.0,>=2.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (2.1.0)
+Requirement already satisfied: aiofiles<24.0.0,>=23.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (23.2.1)
+Requirement already satisfied: jsonschema<5.0.0,>=4.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.21.1)
+Requirement already satisfied: h11<0.15.0,>=0.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.14.0)
+Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.3.1)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (4.0.3)
+Requirement already satisfied: yarl<2.0,>=1.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.9.4)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.4.1)
+Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (6.0.5)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (23.2.0)
+Requirement already satisfied: python-socks[asyncio]<3.0.0,>=2.4.3 in /usr/local/lib/python3.8/site-packages (from aiohttp-socks<0.9.0,>=0.8.4->matrix-nio->test==0.1.0) (2.4.4)
+Requirement already satisfied: hpack<5,>=4.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (4.0.0)
+Requirement already satisfied: hyperframe<7,>=6.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (6.0.1)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (2023.12.1)
+Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.33.0)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (1.3.10)
+Requirement already satisfied: importlib-resources>=1.4.0 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (6.1.3)
+Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.18.0)
+Requirement already satisfied: zipp>=3.1.0 in /usr/local/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (3.17.0)
+Requirement already satisfied: idna>=2.0 in /usr/local/lib/python3.8/site-packages (from yarl<2.0,>=1.0->aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (3.6)
+Installing collected packages: test
+  Running setup.py develop for test
+Successfully installed test-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:42:49,271 | amicus_bot.callbacks [INFO] ********************************* Import module test
+2024-03-11 14:42:49,278 | amicus_bot.callbacks [INFO] ================================================ module = <module 'amicus-plugin-test.test' from '/plugins/amicus-plugin-test/test.py'>
+2024-03-11 14:42:49,278 | amicus-plugin-test.test [INFO] ********************** Observateur créé !echo
+2024-03-11 14:42:49,278 | amicus-plugin-test.test [INFO] ********************** Inscripton de !echo
+2024-03-11 14:42:49,279 | amicus_bot.callbacks [INFO] ***************************Subscribe !echo
+2024-03-11 14:42:49,279 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = perroquet, folder = /plugins/perroquet, url = https://github.com/mauceri/perroquet, package=perroquet
+2024-03-11 14:42:49,279 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++perroquet is enabled
+2024-03-11 14:42:49,280 | amicus_bot.callbacks [INFO] ********************************* Load perroquet
+2024-03-11 14:42:49,280 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/', '/plugins/']
+Obtaining file:///plugins/perroquet
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: amicus_interfaces>=0.1.2 in /usr/local/lib/python3.8/site-packages (from perroquet==0.1.0) (0.1.2)
+Collecting requests>=2.31.0
+  Downloading requests-2.31.0-py3-none-any.whl (62 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 804.8 kB/s eta 0:00:00
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (3.6)
+Collecting urllib3<3,>=1.21.1
+  Downloading urllib3-2.2.1-py3-none-any.whl (121 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.1/121.1 kB 947.4 kB/s eta 0:00:00
+Collecting charset-normalizer<4,>=2
+  Downloading charset_normalizer-3.3.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl (137 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 137.5/137.5 kB 934.9 kB/s eta 0:00:00
+Collecting certifi>=2017.4.17
+  Downloading certifi-2024.2.2-py3-none-any.whl (163 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 163.8/163.8 kB 1.0 MB/s eta 0:00:00
+Installing collected packages: urllib3, charset-normalizer, certifi, requests, perroquet
+  Running setup.py develop for perroquet
+Successfully installed certifi-2024.2.2 charset-normalizer-3.3.2 perroquet-0.1.0 requests-2.31.0 urllib3-2.2.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:42:57,668 | amicus_bot.callbacks [INFO] ********************************* Import module perroquet
+2024-03-11 14:42:57,819 | amicus_bot.callbacks [INFO] ================================================ module = <module 'perroquet.perroquet' from '/plugins/perroquet/perroquet.py'>
+2024-03-11 14:42:57,820 | perroquet.perroquet [INFO] ********************** Observateur créé !coco
+2024-03-11 14:42:57,820 | perroquet.perroquet [INFO] ********************** Inscripton de !coco
+2024-03-11 14:42:57,820 | amicus_bot.callbacks [INFO] ***************************Subscribe !coco
+2024-03-11 14:42:57,820 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = commandes, folder = /plugins/amicus_bot_commandes, url = https://github.com/mauceri/amicus_bot_commandes, package=amicus_bot_commandes
+2024-03-11 14:42:57,820 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++commandes is disabled
+2024-03-11 14:42:57,820 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = raconte_moi_une_histoire, folder = /plugins/amicus_bot_raconte_une_histoire, url = https://github.com/mauceri/amicus_bot_raconte_une_histoire, package=amicus_bot_raconte_une_histoire
+2024-03-11 14:42:57,820 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++raconte_moi_une_histoire is disabled
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = amicus_rag, folder = /plugins/amicus_rag, url = https://github.com/mauceri/amicus_rag, package=amicus_rag
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++amicus_rag is disabled
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = comm.plugin, folder = /plugins/mandata-amici, url = https://github.com/mauceri/mandata-amici, package=mandata-amici
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++comm.plugin is enabled
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] ********************************* Load comm.plugin
+2024-03-11 14:42:57,821 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/', '/plugins/', '/plugins/']
+Obtaining file:///plugins/mandata-amici
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: matrix-nio in /usr/local/lib/python3.8/site-packages (from comm==0.1.0) (0.24.0)
+Requirement already satisfied: amicus_interfaces in /usr/local/lib/python3.8/site-packages (from comm==0.1.0) (0.1.2)
+Requirement already satisfied: aiohttp<4.0.0,>=3.9.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (3.9.3)
+Requirement already satisfied: jsonschema<5.0.0,>=4.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (4.21.1)
+Requirement already satisfied: aiofiles<24.0.0,>=23.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (23.2.1)
+Requirement already satisfied: aiohttp-socks<0.9.0,>=0.8.4 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (0.8.4)
+Requirement already satisfied: pycryptodome<4.0.0,>=3.10.1 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (3.20.0)
+Requirement already satisfied: unpaddedbase64<3.0.0,>=2.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (2.1.0)
+Requirement already satisfied: h11<0.15.0,>=0.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (0.14.0)
+Requirement already satisfied: h2<5.0.0,>=4.0.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->comm==0.1.0) (4.1.0)
+Requirement already satisfied: yarl<2.0,>=1.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (1.9.4)
+Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (6.0.5)
+Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (1.3.1)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (1.4.1)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (23.2.0)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (4.0.3)
+Requirement already satisfied: python-socks[asyncio]<3.0.0,>=2.4.3 in /usr/local/lib/python3.8/site-packages (from aiohttp-socks<0.9.0,>=0.8.4->matrix-nio->comm==0.1.0) (2.4.4)
+Requirement already satisfied: hpack<5,>=4.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->comm==0.1.0) (4.0.0)
+Requirement already satisfied: hyperframe<7,>=6.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->comm==0.1.0) (6.0.1)
+Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (0.33.0)
+Requirement already satisfied: importlib-resources>=1.4.0 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (6.1.3)
+Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (0.18.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (2023.12.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (1.3.10)
+Requirement already satisfied: zipp>=3.1.0 in /usr/local/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema<5.0.0,>=4.14.0->matrix-nio->comm==0.1.0) (3.17.0)
+Requirement already satisfied: idna>=2.0 in /usr/local/lib/python3.8/site-packages (from yarl<2.0,>=1.0->aiohttp<4.0.0,>=3.9.0->matrix-nio->comm==0.1.0) (3.6)
+Installing collected packages: comm
+  Running setup.py develop for comm
+Successfully installed comm-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:43:03,488 | amicus_bot.callbacks [INFO] ********************************* Import module comm.plugin
+2024-03-11 14:43:03,498 | amicus_bot.callbacks [INFO] ================================================ module = <module 'mandata-amici.comm.plugin' from '/plugins/mandata-amici/comm/plugin.py'>
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Observateur créé !c.shell
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Observateur créé !c.get
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Observateur créé !c.reload
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Inscripton de !c.shell
+2024-03-11 14:43:03,499 | amicus_bot.callbacks [INFO] ***************************Subscribe !c.shell
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Inscripton de !c.get
+2024-03-11 14:43:03,499 | amicus_bot.callbacks [INFO] ***************************Subscribe !c.get
+2024-03-11 14:43:03,499 | mandata-amici.comm.plugin [INFO] ********************** Inscripton de !c.reload
+2024-03-11 14:43:03,500 | amicus_bot.callbacks [INFO] ***************************Subscribe !c.reload
+2024-03-11 14:43:03,500 | amicus_bot.main [INFO] ****************** callbacks created
+2024-03-11 14:43:03,500 | amicus_bot.main [INFO] ****************** trying to login is0t0pie
+2024-03-11 14:43:04,161 | amicus_bot.main [INFO] ****************** after client login Logged in as @amicus:synapse.amicus-electrum.xyz, device id: ABCDEFGHIJ.
+2024-03-11 14:43:04,162 | amicus_bot.main [INFO] ****************** Login success
+2024-03-11 14:43:04,162 | amicus_bot.main [INFO] Logged in as @amicus:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,385 | nio.crypto.log [INFO] Creating Inbound session for @mauceric:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,387 | nio.crypto.log [INFO] Created Inbound session for @mauceric:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,420 | nio.crypto.log [INFO] Received Olm event of type: m.room_key from @mauceric:synapse.amicus-electrum.xyz WnZCXXUc23UhV1Hn/bPwJ1/qrWYgT6wIVYAL5OrO5i0
+2024-03-11 14:43:04,421 | nio.crypto.log [INFO] Received new group session key for room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz from @mauceric:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,422 | nio.crypto.log [INFO] Creating inbound group session for !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz from WnZCXXUc23UhV1Hn/bPwJ1/qrWYgT6wIVYAL5OrO5i0
+2024-03-11 14:43:04,440 | nio.client.base_client [INFO] New joined room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,441 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomCreateEvent
+2024-03-11 14:43:04,441 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomHistoryVisibilityEvent
+2024-03-11 14:43:04,441 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomGuestAccessEvent
+2024-03-11 14:43:04,441 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomJoinRulesEvent
+2024-03-11 14:43:04,441 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type PowerLevelsEvent
+2024-03-11 14:43:04,442 | nio.rooms [INFO] Changing power level for user @mauceric:synapse.amicus-electrum.xyz from 0 to 100
+2024-03-11 14:43:04,442 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomTopicEvent
+2024-03-11 14:43:04,442 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomNameEvent
+2024-03-11 14:43:04,442 | nio.rooms [INFO] Room !emYjMVmSbYieefnwBG:synapse.amicus-electrum.xyz handling event of type RoomEncryptionEvent
+2024-03-11 14:43:04,443 | nio.client.base_client [INFO] New joined room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,443 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomEncryptionEvent
+2024-03-11 14:43:04,443 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomCreateEvent
+2024-03-11 14:43:04,443 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomGuestAccessEvent
+2024-03-11 14:43:04,443 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type PowerLevelsEvent
+2024-03-11 14:43:04,444 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomHistoryVisibilityEvent
+2024-03-11 14:43:04,444 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomJoinRulesEvent
+2024-03-11 14:43:04,444 | nio.rooms [INFO] Room !qhFbaWFFCNQVgzdlpO:synapse.amicus-electrum.xyz handling event of type RoomNameEvent
+2024-03-11 14:43:04,444 | nio.client.base_client [INFO] New joined room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz
+2024-03-11 14:43:04,444 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomNameEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomCreateEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomJoinRulesEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type PowerLevelsEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomHistoryVisibilityEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomGuestAccessEvent
+2024-03-11 14:43:04,445 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomEncryptionEvent
+2024-03-11 14:43:04,448 | nio.rooms [INFO] Room !xUZLpmOKqllcpccevZ:synapse.amicus-electrum.xyz handling event of type RoomMessageText
+****************************commande = Amicus, et observers = {'!echo': <amicus-plugin-test.test.Echo object at 0x7f8b0d9220>, '!coco': <perroquet.perroquet.Perroquet object at 0x7f8b0d9c70>, '!c.shell': <mandata-amici.comm.plugin.Shell object at 0x7f8b1c1ca0>, '!c.get': <mandata-amici.comm.plugin.Get object at 0x7f8b1c1220>, '!c.reload': <mandata-amici.comm.plugin.Reload object at 0x7f8b08afd0>}
+2024-03-11 14:43:04,448 | amicus_bot.callbacks [WARNING] ****************************** Amicus, introuvable essayons perroquet
+2024-03-11 14:43:04,449 | perroquet.perroquet [INFO] ***************************** L'utilisateur @mauceric:synapse.amicus-electrum.xyz a écrit êtes-vous encore là ? depuis ls salon Test Amicus
+Question de @mauceric:synapse.amicus-electrum.xyz du salon Test Amicus: êtes-vous encore là ?
+L'id de la transaction pour la question êtes-vous encore là ? est 52
+Interroge Mixtral êtes-vous encore là ?
+2024-03-11 14:43:04,459 | root [INFO] Interroge Mixtral êtes-vous encore là ?
+Question formatée [{"role": "system", "content": "Vous \u00eates un robot de discussion g\u00e9n\u00e9rale. Vos r\u00e9ponses sont concises, elles ne d\u00e9passent pas 500 mots, mais restent informatives."}, {"role": "user", "content": "/data/tmp/plugins.yaml /data/plugins.yaml"}, {"role": "assistant", "content": " Il semble que vous ayez fourni une adresse URL ou un chemin de fichier dans votre message. /data/tmp/plugins.yaml est un chemin de fichier qui indique l'emplacement d'un fichier nomm\u00e9 \"plugins.yaml\" dans le r\u00e9pertoire \"tmp\" situ\u00e9 dans le r\u00e9pertoire \"data\".\n\nUn fichier \"plugins.yaml\" est probablement utilis\u00e9 pour stocker des informations sur les plugins ou les extensions install\u00e9es sur un syst\u00e8me. Ce fichier peut contenir des d\u00e9tails tels que le nom, la version, et les fonctionnalit\u00e9s de chaque plugin, ainsi que des informations sur la d\u00e9pendance et la configuration de chaque plugin.\n\nSi vous cherchez \u00e0 obtenir des informations sur les plugins ou les extensions install\u00e9es sur un syst\u00e8me, vous devrez peut-\u00eatre ouvrir et lire le contenu du fichier \"plugins.yaml\" \u00e0 l'aide d'un \u00e9diteur de texte ou d'un autre outil appropri\u00e9. Cela devrait vous fournir des d\u00e9tails sur les plugins install\u00e9s et leur configuration.\n\nSi vous avez besoin d'aide pour lire ou interpr\u00e9ter le contenu du fichier \"plugins.yaml\", n'h\u00e9sitez pas \u00e0 me le faire savoir et je ferai de mon mieux pour vous fournir des conseils et des informations utiles. Je suis l\u00e0 pour vous aider !"}, {"role": "user", "content": "\u00e9tait la Belle Ferroni\u00e8re"}, {"role": "assistant", "content": "La Belle Ferroni\u00e8re \u00e9tait un portrait peint par le c\u00e9l\u00e8bre artiste Leonardo da Vinci, qui a v\u00e9cu au 15\u00e8me et au 16\u00e8me si\u00e8cle. Le tableau repr\u00e9sente une femme non identifi\u00e9e, qui est souvent appel\u00e9e \"la Belle Ferroni\u00e8re\" en raison de la cha\u00eene en or qu'elle porte autour de son cou, qui \u00e9tait une pi\u00e8ce de bijouterie populaire \u00e0 l'\u00e9poque de la Renaissance.\n\nLe tableau a \u00e9t\u00e9 peint \u00e0 l'huile sur panneau de bois et mesure environ 63 cm de haut sur 45 cm de large. Il est actuellement expos\u00e9 au mus\u00e9e du Louvre \u00e0 Paris, en France.\n\nOn ne sait pas exactement qui est la femme repr\u00e9sent\u00e9e dans le portrait de la Belle Ferroni\u00e8re. Certaines sources sugg\u00e8rent qu'il pourrait s'agir de Lucrezia Crivelli, une ma\u00eetresse du duc de Milan, Ludovic Sforza. D'autres sources affirment que la femme repr\u00e9sent\u00e9e dans le portrait pourrait \u00eatre une \u00e9pouse ou une ma\u00eetresse d'un autre membre de la famille Sforza.\n\nMalgr\u00e9 l'incertitude quant \u00e0 l'identit\u00e9 de la femme repr\u00e9sent\u00e9e dans le portrait, la Belle Ferroni\u00e8re est consid\u00e9r\u00e9e comme l'une des \u0153uvres les plus c\u00e9l\u00e8bres et les plus importantes de Leonardo da Vinci. Le tableau est admir\u00e9 pour sa beaut\u00e9 et sa qualit\u00e9 artistique, et il est souvent cit\u00e9 comme un exemple important de la peinture de la Renaissance."}, {"role": "user", "content": "test"}, {"role": "assistant", "content": "Bienvenue pour ce test ! Je suis un robot de conversation g\u00e9n\u00e9rale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je m'efforcerai de r\u00e9pondre de mani\u00e8re concise, mais informative, en respectant une limite de 500 mots par r\u00e9ponse. N'h\u00e9sitez pas \u00e0 me poser n'importe quelle question ou \u00e0 demander des informations sur n'importe quel sujet. Je suis l\u00e0 pour vous aider !\n\nSi vous avez des questions sur un sujet sp\u00e9cifique, n'h\u00e9sitez pas \u00e0 me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous int\u00e9resse. Je ferai de mon mieux pour vous fournir des r\u00e9ponses pr\u00e9cises et informatives.\n\nSi vous avez des questions ou des demandes plus complexes, n'h\u00e9sitez pas \u00e0 me les poser. Je suis \u00e9quip\u00e9 de capacit\u00e9s avanc\u00e9es de traitement du langage naturel et je suis capable de comprendre et de r\u00e9pondre \u00e0 des demandes plus complexes. Je suis \u00e9galement capable de traiter des demandes de plusieurs parties et de fournir des r\u00e9ponses d\u00e9taill\u00e9es et informatives.\n\nJ'esp\u00e8re que vous trouverez ce test utile et int\u00e9ressant. N'h\u00e9sitez pas \u00e0 me poser toutes les questions que vous souhaitez et je ferai de mon mieux pour vous fournir des r\u00e9ponses pr\u00e9cises et informatives. Merci de m'avoir donn\u00e9 l'occasion de vous aider !"}, {"role": "user", "content": "\u00cates-vous l\u00e0 ?"}, {"role": "assistant", "content": " Oui, je suis l\u00e0 ! Je suis un robot de conversation g\u00e9n\u00e9rale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je suis \u00e9quip\u00e9 de capacit\u00e9s avanc\u00e9es de traitement du langage naturel et je suis capable de comprendre et de r\u00e9pondre \u00e0 un large \u00e9ventail de demandes. N'h\u00e9sitez pas \u00e0 me poser n'importe quelle question ou \u00e0 demander des informations sur n'importe quel sujet, et je ferai de mon mieux pour vous fournir des r\u00e9ponses pr\u00e9cises et informatives.\n\nSi vous avez des questions sur un sujet sp\u00e9cifique, n'h\u00e9sitez pas \u00e0 me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous int\u00e9resse. Je suis capable de comprendre et de r\u00e9pondre \u00e0 des demandes complexes, et je suis \u00e9galement capable de traiter des demandes de plusieurs parties et de fournir des r\u00e9ponses d\u00e9taill\u00e9es et informatives.\n\nJe m'efforcerai de r\u00e9pondre \u00e0 toutes vos questions de mani\u00e8re concise, mais informative, en respectant une limite de 500 mots par r\u00e9ponse. Si vous avez des questions ou des demandes suppl\u00e9mentaires, n'h\u00e9sitez pas \u00e0 me les poser et je serai heureux de vous aider. Je suis l\u00e0 pour vous aider et je suis impatient de r\u00e9pondre \u00e0 toutes vos questions !"}, {"role": "user", "content": "test"}, {"role": "assistant", "content": "Bienvenue pour ce test ! Je suis un robot de conversation g\u00e9n\u00e9rale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je m'efforcerai de r\u00e9pondre de mani\u00e8re concise, mais informative, en respectant une limite de 500 mots par r\u00e9ponse. N'h\u00e9sitez pas \u00e0 me poser n'importe quelle question ou \u00e0 demander des informations sur n'importe quel sujet. Je suis l\u00e0 pour vous aider !\n\nSi vous avez des questions sur un sujet sp\u00e9cifique, n'h\u00e9sitez pas \u00e0 me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous int\u00e9resse. Je ferai de mon mieux pour vous fournir des r\u00e9ponses pr\u00e9cises et informatives.\n\nSi vous avez des questions ou des demandes plus complexes, n'h\u00e9sitez pas \u00e0 me les poser. Je suis \u00e9quip\u00e9 de capacit\u00e9s avanc\u00e9es de traitement du langage naturel et je suis capable de comprendre et de r\u00e9pondre \u00e0 des demandes plus complexes. Je suis \u00e9galement capable de traiter des demandes de plusieurs parties et de fournir des r\u00e9ponses d\u00e9taill\u00e9es et informatives.\n\nJ'esp\u00e8re que vous trouverez ce test utile et int\u00e9ressant. N'h\u00e9sitez pas \u00e0 me poser toutes les questions que vous souhaitez et je ferai de mon mieux pour vous fournir des r\u00e9ponses pr\u00e9cises et informatives. Merci de m'avoir donn\u00e9 l'occasion de vous aider !"}, {"role": "user", "content": "\u00eates-vous encore l\u00e0 ?"}]
+data : {'model': 'mistralai/Mixtral-8x7B-Instruct-v0.1', 'messages': [{'role': 'system', 'content': 'Vous êtes un robot de discussion générale. Vos réponses sont concises, elles ne dépassent pas 500 mots, mais restent informatives.'}, {'role': 'user', 'content': '/data/tmp/plugins.yaml /data/plugins.yaml'}, {'role': 'assistant', 'content': ' Il semble que vous ayez fourni une adresse URL ou un chemin de fichier dans votre message. /data/tmp/plugins.yaml est un chemin de fichier qui indique l\'emplacement d\'un fichier nommé "plugins.yaml" dans le répertoire "tmp" situé dans le répertoire "data".\n\nUn fichier "plugins.yaml" est probablement utilisé pour stocker des informations sur les plugins ou les extensions installées sur un système. Ce fichier peut contenir des détails tels que le nom, la version, et les fonctionnalités de chaque plugin, ainsi que des informations sur la dépendance et la configuration de chaque plugin.\n\nSi vous cherchez à obtenir des informations sur les plugins ou les extensions installées sur un système, vous devrez peut-être ouvrir et lire le contenu du fichier "plugins.yaml" à l\'aide d\'un éditeur de texte ou d\'un autre outil approprié. Cela devrait vous fournir des détails sur les plugins installés et leur configuration.\n\nSi vous avez besoin d\'aide pour lire ou interpréter le contenu du fichier "plugins.yaml", n\'hésitez pas à me le faire savoir et je ferai de mon mieux pour vous fournir des conseils et des informations utiles. Je suis là pour vous aider !'}, {'role': 'user', 'content': 'était la Belle Ferronière'}, {'role': 'assistant', 'content': 'La Belle Ferronière était un portrait peint par le célèbre artiste Leonardo da Vinci, qui a vécu au 15ème et au 16ème siècle. Le tableau représente une femme non identifiée, qui est souvent appelée "la Belle Ferronière" en raison de la chaîne en or qu\'elle porte autour de son cou, qui était une pièce de bijouterie populaire à l\'époque de la Renaissance.\n\nLe tableau a été peint à l\'huile sur panneau de bois et mesure environ 63 cm de haut sur 45 cm de large. Il est actuellement exposé au musée du Louvre à Paris, en France.\n\nOn ne sait pas exactement qui est la femme représentée dans le portrait de la Belle Ferronière. Certaines sources suggèrent qu\'il pourrait s\'agir de Lucrezia Crivelli, une maîtresse du duc de Milan, Ludovic Sforza. D\'autres sources affirment que la femme représentée dans le portrait pourrait être une épouse ou une maîtresse d\'un autre membre de la famille Sforza.\n\nMalgré l\'incertitude quant à l\'identité de la femme représentée dans le portrait, la Belle Ferronière est considérée comme l\'une des œuvres les plus célèbres et les plus importantes de Leonardo da Vinci. Le tableau est admiré pour sa beauté et sa qualité artistique, et il est souvent cité comme un exemple important de la peinture de la Renaissance.'}, {'role': 'user', 'content': 'test'}, {'role': 'assistant', 'content': "Bienvenue pour ce test ! Je suis un robot de conversation générale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je m'efforcerai de répondre de manière concise, mais informative, en respectant une limite de 500 mots par réponse. N'hésitez pas à me poser n'importe quelle question ou à demander des informations sur n'importe quel sujet. Je suis là pour vous aider !\n\nSi vous avez des questions sur un sujet spécifique, n'hésitez pas à me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous intéresse. Je ferai de mon mieux pour vous fournir des réponses précises et informatives.\n\nSi vous avez des questions ou des demandes plus complexes, n'hésitez pas à me les poser. Je suis équipé de capacités avancées de traitement du langage naturel et je suis capable de comprendre et de répondre à des demandes plus complexes. Je suis également capable de traiter des demandes de plusieurs parties et de fournir des réponses détaillées et informatives.\n\nJ'espère que vous trouverez ce test utile et intéressant. N'hésitez pas à me poser toutes les questions que vous souhaitez et je ferai de mon mieux pour vous fournir des réponses précises et informatives. Merci de m'avoir donné l'occasion de vous aider !"}, {'role': 'user', 'content': 'Êtes-vous là ?'}, {'role': 'assistant', 'content': " Oui, je suis là ! Je suis un robot de conversation générale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je suis équipé de capacités avancées de traitement du langage naturel et je suis capable de comprendre et de répondre à un large éventail de demandes. N'hésitez pas à me poser n'importe quelle question ou à demander des informations sur n'importe quel sujet, et je ferai de mon mieux pour vous fournir des réponses précises et informatives.\n\nSi vous avez des questions sur un sujet spécifique, n'hésitez pas à me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous intéresse. Je suis capable de comprendre et de répondre à des demandes complexes, et je suis également capable de traiter des demandes de plusieurs parties et de fournir des réponses détaillées et informatives.\n\nJe m'efforcerai de répondre à toutes vos questions de manière concise, mais informative, en respectant une limite de 500 mots par réponse. Si vous avez des questions ou des demandes supplémentaires, n'hésitez pas à me les poser et je serai heureux de vous aider. Je suis là pour vous aider et je suis impatient de répondre à toutes vos questions !"}, {'role': 'user', 'content': 'test'}, {'role': 'assistant', 'content': "Bienvenue pour ce test ! Je suis un robot de conversation générale et je suis heureux de vous aider avec toutes vos questions ou demandes. Je m'efforcerai de répondre de manière concise, mais informative, en respectant une limite de 500 mots par réponse. N'hésitez pas à me poser n'importe quelle question ou à demander des informations sur n'importe quel sujet. Je suis là pour vous aider !\n\nSi vous avez des questions sur un sujet spécifique, n'hésitez pas à me le faire savoir. Par exemple, vous pouvez me demander des informations sur l'histoire, la science, la technologie, la culture pop, ou tout autre sujet qui vous intéresse. Je ferai de mon mieux pour vous fournir des réponses précises et informatives.\n\nSi vous avez des questions ou des demandes plus complexes, n'hésitez pas à me les poser. Je suis équipé de capacités avancées de traitement du langage naturel et je suis capable de comprendre et de répondre à des demandes plus complexes. Je suis également capable de traiter des demandes de plusieurs parties et de fournir des réponses détaillées et informatives.\n\nJ'espère que vous trouverez ce test utile et intéressant. N'hésitez pas à me poser toutes les questions que vous souhaitez et je ferai de mon mieux pour vous fournir des réponses précises et informatives. Merci de m'avoir donné l'occasion de vous aider !"}, {'role': 'user', 'content': 'êtes-vous encore là ?'}], 'temperature': 0.7}
+Réponse de Mixtral "<Response [401]>"
+Quelque chose n'a pas fonctionné au niveau de l'interrogation de Mixtral 'choices'
+Traceback (most recent call last):
+  File "/usr/local/bin/amicus-bot", line 8, in <module>
+    asyncio.get_event_loop().run_until_complete(main.main())
+  File "/usr/local/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
+    return future.result()
+  File "/usr/local/lib/python3.8/site-packages/amicus_bot/main.py", line 115, in main
+    await client.sync_forever(timeout=30000, full_state=True)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/base_client.py", line 105, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 1300, in sync_forever
+    sync_response = await self.sync(
+  File "/usr/local/lib/python3.8/site-packages/nio/client/base_client.py", line 105, in wrapper
+    return await func(self, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 1173, in sync
+    response = await self._send(
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 823, in _send
+    await self.receive_response(resp)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 723, in receive_response
+    await self._handle_sync(response)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 690, in _handle_sync
+    await self._handle_joined_rooms(response)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/async_client.py", line 617, in _handle_joined_rooms
+    await cb.execute(event, room)
+  File "/usr/local/lib/python3.8/site-packages/nio/client/base_client.py", line 131, in execute
+    await result
+  File "/usr/local/lib/python3.8/site-packages/amicus_bot/callbacks.py", line 158, in message
+    await o.notify(room,event,msg)
+  File "/plugins/perroquet/perroquet.py", line 41, in notify
+    await self.__observable.notify(room, event, "Coco a dit : "+reponse, None, None)
+TypeError: can only concatenate str (not "NoneType") to str
+2024-03-11 14:43:08,588 | amicus_bot.main [INFO] ****************** Config file read <amicus_bot.config.Config object at 0x7fb4711880>
+2024-03-11 14:43:08,590 | amicus_bot.storage [INFO] Database initialization of type 'sqlite' complete
+2024-03-11 14:43:08,590 | amicus_bot.main [INFO] ****************** Client @amicus:synapse.amicus-electrum.xyz created
+2024-03-11 14:43:08,590 | amicus_bot.callbacks [INFO] ****************** Loading plugins
+Le répertoire '/data/tmp' existe déjà.
+2024-03-11 14:43:08,602 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = test, folder = /plugins/amicus-plugin-test, url = https://github.com/mauceri/amicus-plugin-test, package=amicus-plugin-test
+2024-03-11 14:43:08,603 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++test is enabled
+2024-03-11 14:43:08,603 | amicus_bot.callbacks [INFO] ********************************* Load test
+2024-03-11 14:43:08,621 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/amicus-plugin-test', '/plugins/perroquet', '/plugins/mandata-amici', '/plugins/']
+Obtaining file:///plugins/amicus-plugin-test
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: matrix-nio in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.24.0)
+Requirement already satisfied: amicus_interfaces in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.1.2)
+Requirement already satisfied: unpaddedbase64<3.0.0,>=2.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (2.1.0)
+Requirement already satisfied: pycryptodome<4.0.0,>=3.10.1 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.20.0)
+Requirement already satisfied: aiohttp<4.0.0,>=3.9.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.9.3)
+Requirement already satisfied: aiohttp-socks<0.9.0,>=0.8.4 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.8.4)
+Requirement already satisfied: aiofiles<24.0.0,>=23.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (23.2.1)
+Requirement already satisfied: h2<5.0.0,>=4.0.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.1.0)
+Requirement already satisfied: h11<0.15.0,>=0.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.14.0)
+Requirement already satisfied: jsonschema<5.0.0,>=4.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.21.1)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.4.1)
+Requirement already satisfied: yarl<2.0,>=1.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.9.4)
+Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.3.1)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (23.2.0)
+Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (6.0.5)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (4.0.3)
+Requirement already satisfied: python-socks[asyncio]<3.0.0,>=2.4.3 in /usr/local/lib/python3.8/site-packages (from aiohttp-socks<0.9.0,>=0.8.4->matrix-nio->test==0.1.0) (2.4.4)
+Requirement already satisfied: hpack<5,>=4.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (4.0.0)
+Requirement already satisfied: hyperframe<7,>=6.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (6.0.1)
+Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.18.0)
+Requirement already satisfied: importlib-resources>=1.4.0 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (6.1.3)
+Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.33.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (2023.12.1)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (1.3.10)
+Requirement already satisfied: zipp>=3.1.0 in /usr/local/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (3.17.0)
+Requirement already satisfied: idna>=2.0 in /usr/local/lib/python3.8/site-packages (from yarl<2.0,>=1.0->aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (3.6)
+Installing collected packages: test
+  Running setup.py develop for test
+Successfully installed test-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:43:14,411 | amicus_bot.callbacks [INFO] ********************************* Import module test
+2024-03-11 14:43:14,418 | amicus_bot.callbacks [INFO] ================================================ module = <module 'amicus-plugin-test.test' from '/plugins/amicus-plugin-test/test.py'>
+2024-03-11 14:43:14,419 | amicus-plugin-test.test [INFO] ********************** Observateur créé !echo
+2024-03-11 14:43:14,419 | amicus-plugin-test.test [INFO] ********************** Inscripton de !echo
+2024-03-11 14:43:14,419 | amicus_bot.callbacks [INFO] ***************************Subscribe !echo
+2024-03-11 14:43:14,420 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = perroquet, folder = /plugins/perroquet, url = https://github.com/mauceri/perroquet, package=perroquet
+2024-03-11 14:43:14,420 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++perroquet is enabled
+2024-03-11 14:43:14,420 | amicus_bot.callbacks [INFO] ********************************* Load perroquet
+2024-03-11 14:43:14,430 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/amicus-plugin-test', '/plugins/perroquet', '/plugins/mandata-amici', '/plugins/', '/plugins/']
+Obtaining file:///plugins/perroquet
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: amicus_interfaces>=0.1.2 in /usr/local/lib/python3.8/site-packages (from perroquet==0.1.0) (0.1.2)
+Requirement already satisfied: requests>=2.31.0 in /usr/local/lib/python3.8/site-packages (from perroquet==0.1.0) (2.31.0)
+Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (3.3.2)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (2.2.1)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (3.6)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (2024.2.2)
+Installing collected packages: perroquet
+  Running setup.py develop for perroquet
+Successfully installed perroquet-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:43:19,751 | amicus_bot.callbacks [INFO] ********************************* Import module perroquet
+Unable to import amicus_bot.main: attempted relative import with no known parent package
+2024-03-11 14:43:22,888 | amicus_bot.main [INFO] ****************** Config file read <amicus_bot.config.Config object at 0x7fa9a178e0>
+2024-03-11 14:43:22,889 | amicus_bot.storage [INFO] Database initialization of type 'sqlite' complete
+2024-03-11 14:43:22,889 | amicus_bot.main [INFO] ****************** Client @amicus:synapse.amicus-electrum.xyz created
+2024-03-11 14:43:22,890 | amicus_bot.callbacks [INFO] ****************** Loading plugins
+Le répertoire '/data/tmp' existe déjà.
+2024-03-11 14:43:22,901 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = test, folder = /plugins/amicus-plugin-test, url = https://github.com/mauceri/amicus-plugin-test, package=amicus-plugin-test
+2024-03-11 14:43:22,902 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++test is enabled
+2024-03-11 14:43:22,902 | amicus_bot.callbacks [INFO] ********************************* Load test
+2024-03-11 14:43:22,918 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/amicus-plugin-test', '/plugins/perroquet', '/plugins/mandata-amici', '/plugins/']
+Obtaining file:///plugins/amicus-plugin-test
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: matrix-nio in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.24.0)
+Requirement already satisfied: amicus_interfaces in /usr/local/lib/python3.8/site-packages (from test==0.1.0) (0.1.2)
+Requirement already satisfied: aiohttp-socks<0.9.0,>=0.8.4 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.8.4)
+Requirement already satisfied: jsonschema<5.0.0,>=4.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.21.1)
+Requirement already satisfied: h11<0.15.0,>=0.14.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (0.14.0)
+Requirement already satisfied: unpaddedbase64<3.0.0,>=2.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (2.1.0)
+Requirement already satisfied: aiofiles<24.0.0,>=23.1.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (23.2.1)
+Requirement already satisfied: h2<5.0.0,>=4.0.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (4.1.0)
+Requirement already satisfied: aiohttp<4.0.0,>=3.9.0 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.9.3)
+Requirement already satisfied: pycryptodome<4.0.0,>=3.10.1 in /usr/local/lib/python3.8/site-packages (from matrix-nio->test==0.1.0) (3.20.0)
+Requirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (23.2.0)
+Requirement already satisfied: yarl<2.0,>=1.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.9.4)
+Requirement already satisfied: multidict<7.0,>=4.5 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (6.0.5)
+Requirement already satisfied: frozenlist>=1.1.1 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.4.1)
+Requirement already satisfied: aiosignal>=1.1.2 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (1.3.1)
+Requirement already satisfied: async-timeout<5.0,>=4.0 in /usr/local/lib/python3.8/site-packages (from aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (4.0.3)
+Requirement already satisfied: python-socks[asyncio]<3.0.0,>=2.4.3 in /usr/local/lib/python3.8/site-packages (from aiohttp-socks<0.9.0,>=0.8.4->matrix-nio->test==0.1.0) (2.4.4)
+Requirement already satisfied: hyperframe<7,>=6.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (6.0.1)
+Requirement already satisfied: hpack<5,>=4.0 in /usr/local/lib/python3.8/site-packages (from h2<5.0.0,>=4.0.0->matrix-nio->test==0.1.0) (4.0.0)
+Requirement already satisfied: jsonschema-specifications>=2023.03.6 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (2023.12.1)
+Requirement already satisfied: referencing>=0.28.4 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.33.0)
+Requirement already satisfied: pkgutil-resolve-name>=1.3.10 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (1.3.10)
+Requirement already satisfied: rpds-py>=0.7.1 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (0.18.0)
+Requirement already satisfied: importlib-resources>=1.4.0 in /usr/local/lib/python3.8/site-packages (from jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (6.1.3)
+Requirement already satisfied: zipp>=3.1.0 in /usr/local/lib/python3.8/site-packages (from importlib-resources>=1.4.0->jsonschema<5.0.0,>=4.14.0->matrix-nio->test==0.1.0) (3.17.0)
+Requirement already satisfied: idna>=2.0 in /usr/local/lib/python3.8/site-packages (from yarl<2.0,>=1.0->aiohttp<4.0.0,>=3.9.0->matrix-nio->test==0.1.0) (3.6)
+Installing collected packages: test
+  Running setup.py develop for test
+Successfully installed test-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:43:29,416 | amicus_bot.callbacks [INFO] ********************************* Import module test
+2024-03-11 14:43:29,423 | amicus_bot.callbacks [INFO] ================================================ module = <module 'amicus-plugin-test.test' from '/plugins/amicus-plugin-test/test.py'>
+2024-03-11 14:43:29,423 | amicus-plugin-test.test [INFO] ********************** Observateur créé !echo
+2024-03-11 14:43:29,424 | amicus-plugin-test.test [INFO] ********************** Inscripton de !echo
+2024-03-11 14:43:29,424 | amicus_bot.callbacks [INFO] ***************************Subscribe !echo
+2024-03-11 14:43:29,424 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = perroquet, folder = /plugins/perroquet, url = https://github.com/mauceri/perroquet, package=perroquet
+2024-03-11 14:43:29,424 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++perroquet is enabled
+2024-03-11 14:43:29,424 | amicus_bot.callbacks [INFO] ********************************* Load perroquet
+2024-03-11 14:43:29,435 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/amicus-plugin-test', '/plugins/perroquet', '/plugins/mandata-amici', '/plugins/', '/plugins/']
+Obtaining file:///plugins/perroquet
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: amicus_interfaces>=0.1.2 in /usr/local/lib/python3.8/site-packages (from perroquet==0.1.0) (0.1.2)
+Requirement already satisfied: requests>=2.31.0 in /usr/local/lib/python3.8/site-packages (from perroquet==0.1.0) (2.31.0)
+Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (3.6)
+Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (2.2.1)
+Requirement already satisfied: charset-normalizer<4,>=2 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (3.3.2)
+Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.8/site-packages (from requests>=2.31.0->perroquet==0.1.0) (2024.2.2)
+Installing collected packages: perroquet
+  Running setup.py develop for perroquet
+Successfully installed perroquet-0.1.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+
+[notice] A new release of pip is available: 23.0.1 -> 24.0
+[notice] To update, run: pip install --upgrade pip
+2024-03-11 14:43:36,888 | amicus_bot.callbacks [INFO] ********************************* Import module perroquet
+Unable to import amicus_bot.main: attempted relative import with no known parent package
+2024-03-11 14:43:39,951 | amicus_bot.main [INFO] ****************** Config file read <amicus_bot.config.Config object at 0x7f7cb138e0>
+2024-03-11 14:43:39,952 | amicus_bot.storage [INFO] Database initialization of type 'sqlite' complete
+2024-03-11 14:43:39,953 | amicus_bot.main [INFO] ****************** Client @amicus:synapse.amicus-electrum.xyz created
+2024-03-11 14:43:39,953 | amicus_bot.callbacks [INFO] ****************** Loading plugins
+Le répertoire '/data/tmp' existe déjà.
+2024-03-11 14:43:39,965 | amicus_bot.callbacks [INFO] +++++++++++++++++++++++++++++++name = test, folder = /plugins/amicus-plugin-test, url = https://github.com/mauceri/amicus-plugin-test, package=amicus-plugin-test
+2024-03-11 14:43:39,965 | amicus_bot.callbacks [INFO] ++++++++++++++++++++++++++++++test is enabled
+2024-03-11 14:43:39,966 | amicus_bot.callbacks [INFO] ********************************* Load test
+2024-03-11 14:43:39,982 | amicus_bot.callbacks [INFO] ******************************** sys.path = ['/usr/local/bin', '/usr/local/lib/python38.zip', '/usr/local/lib/python3.8', '/usr/local/lib/python3.8/lib-dynload', '/usr/local/lib/python3.8/site-packages', '/plugins/amicus-plugin-test', '/plugins/perroquet', '/plugins/mandata-amici', '/plugins/']
