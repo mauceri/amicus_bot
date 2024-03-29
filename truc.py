@@ -1,36 +1,34 @@
-import time
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+import json
+import string
+import sys
+from venv import logger
 import yaml
+import os
 
-class PluginFileChangeHandler(FileSystemEventHandler):
-    """Gère les événements pour le fichier de configuration des plugins."""
 
-    def on_modified(self, event):
-        """Appelé lorsque le fichier est modifié."""
-        if event.src_path == "/Users/mauceric/PRG/amicus-bot/plugins.yaml":
-            print("Le fichier plugins.yaml a été modifié.")
-            with open("./plugins.yaml", 'r') as fichier:
-                contenu = yaml.safe_load(fichier)
-                plugins = contenu['plugins']
-                for plugin in plugins:
-                    if plugin['enabled']:
-                        print(f"{plugin['name']} is enabled")
-                    else:
-                        print(f"{plugin['name']} is disabled")
+def update_plugins(path:string):
+    with open(path, 'r') as fichier:
+        contenu = yaml.safe_load(fichier)
+                
+        plugind = json.loads(json.dumps(contenu))
 
-def start_watchdog():
-    path = "/Users/mauceric/PRG/amicus-bot"  # Le dossier contenant le fichier à surveiller
-    event_handler = PluginFileChangeHandler()
-    observer = Observer()
-    observer.schedule(event_handler, path, recursive=False)
-    observer.start()
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        observer.stop()
-    observer.join()
+        for plugin in plugind['plugins']:
+            print(f"plugin={plugin}")
+            name = plugin['name']
+            url = plugin['url']
+            package = plugin['package']
+            folder = "/plugins/"+package
+            print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
+
+            if 'env' in plugin :
+                for pair in plugin['env']:
+                    os.environ[pair['var']]=pair['val']
+                    print(f"****************** {pair['var']}={os.getenv(pair['var'])}")
+
 
 if __name__ == "__main__":
-    start_watchdog()
+    if len(sys.argv) > 1:
+        plugins_path = sys.argv[1]
+    else:
+        plugins_path = "data/plugins.yaml"
+    update_plugins(plugins_path)

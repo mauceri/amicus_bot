@@ -1,4 +1,5 @@
 import importlib
+import json
 import logging
 import os
 import shutil
@@ -55,22 +56,21 @@ class Callbacks(IObservable):
 
     def update_plugins(self):
          with open(self.path_yaml_plugin, 'r') as fichier:
-                contenu = yaml.safe_load(fichier)
-                plugins = contenu['plugins']
-                
-                for plugin in plugins:
-                    name = plugin['name']
-                    url = plugin['url']
-                    package = plugin['package']
-                    folder = "/plugins/"+package
-                    logger.info(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
-                    if plugin['enabled']:
-                        logger.info(f"++++++++++++++++++++++++++++++{name} is enabled")
-                        self.load_plugin(name,package,url,folder)
-                    else:
-                        logger.info(f"++++++++++++++++++++++++++++++{name} is disabled")
-                        self.unload_plugin(name)
+            contenu = yaml.safe_load(fichier)    
+            plugind = json.loads(json.dumps(contenu))
 
+            for plugin in plugind['plugins']:
+                print(f"plugin={plugin}")
+                name = plugin['name']
+                url = plugin['url']
+                package = plugin['package']
+                folder = "/plugins/"+package
+                #print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
+
+                if 'env' in plugin :
+                    for pair in plugin['env']:
+                        os.environ[pair['var']]=pair['val']
+                        print(f"****************** {pair['var']}={os.getenv(pair['var'])}")
        
     def load_plugin(self, plugin_name, package, plugin_url, plugin_path):
         try:
