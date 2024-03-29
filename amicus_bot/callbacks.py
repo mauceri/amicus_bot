@@ -56,7 +56,7 @@ class Callbacks(IObservable):
 
     def update_plugins(self):
          with open(self.path_yaml_plugin, 'r') as fichier:
-            contenu = yaml.safe_load(fichier)    
+            contenu = yaml.safe_load(fichier)
             plugind = json.loads(json.dumps(contenu))
 
             for plugin in plugind['plugins']:
@@ -66,12 +66,18 @@ class Callbacks(IObservable):
                 package = plugin['package']
                 folder = "/plugins/"+package
                 #print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
-
                 if 'env' in plugin :
                     for pair in plugin['env']:
                         os.environ[pair['var']]=pair['val']
                         print(f"****************** {pair['var']}={os.getenv(pair['var'])}")
-       
+                if plugin['enabled']:
+                    logger.info(f"++++++++++++++++++++++++++++++{name} is enabled")
+                    self.load_plugin(name,package,url,folder)
+                else:
+                    logger.info(f"++++++++++++++++++++++++++++++{name} is disabled")
+                    self.unload_plugin(name)
+
+
     def load_plugin(self, plugin_name, package, plugin_url, plugin_path):
         try:
             logger.info(f"********************************* Load {plugin_name}")
@@ -84,12 +90,12 @@ class Callbacks(IObservable):
                 os.mkdir(data_path)
             self.unload_plugin(plugin_name)
             sys.path.append("/plugins/")
-            logger.info(f"******************************** sys.path = {sys.path}")
+            #logger.info(f"******************************** sys.path = {sys.path}")
             git.Repo.clone_from(plugin_url, plugin_path)
             subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
-            logger.info(f"********************************* Import module {plugin_name}")
+            #logger.info(f"********************************* Import module {plugin_name}")
             module = importlib.import_module("."+plugin_name,package=package)
-            logger.info(f"================================================ module = {module}")
+            #logger.info(f"================================================ module = {module}")
             self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
             self.plugins[plugin_name].start()
         except Exception as err:
