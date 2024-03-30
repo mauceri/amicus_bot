@@ -67,9 +67,10 @@ class Callbacks(IObservable):
                 folder = "/plugins/"+package
                 #print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
                 if 'env' in plugin :
-                    for pair in plugin['env']:
-                        os.environ[pair['var']]=pair['val']
-                        print(f"****************** {pair['var']}={os.getenv(pair['var'])}")
+                    for env in  plugin['env']:
+                        key, val = next(iter(env.items())) 
+                        os.environ[key]=val
+                        print(f"****************** {key}={os.getenv(key)}")
                 if plugin['enabled']:
                     logger.info(f"++++++++++++++++++++++++++++++{name} is enabled")
                     self.load_plugin(name,package,url,folder)
