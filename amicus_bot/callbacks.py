@@ -2,6 +2,7 @@ import importlib
 import json
 import logging
 import os
+from pathlib import Path
 import shutil
 import sys
 import time
@@ -46,16 +47,26 @@ class Callbacks(IObservable):
         self.observers = {}
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
-        self.path_yaml_plugin = "/data/plugins.yaml"
+        self.path_yaml_plugin = config.plugins_path
+        self.plugins_root =  os.path.join(self.config.data_path,"plugins")
+        logger.info(f"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ self.config.data_path = {self.config.data_path}")
+        logger.info(f"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ self.plugins_root = {self.plugins_root}")
         try:
-            os.mkdir("/data/tmp")
-            print(f"Répertoire '/data/tmp' créé avec succès.")
+            os.makedirs(self.plugins_root)
+            print(f"Répertoire '{config.tmp_path}' créé avec succès.")
         except FileExistsError:
-            print(f"Le répertoire '/data/tmp' existe déjà.")
+            print(f"Le répertoire '{config.tmp_path}' existe déjà.")
+        sys.path.append(self.plugins_root)
+        try:
+            # Utliser self.config 
+            os.mkdir(config.tmp_path)
+            print(f"Répertoire '{config.tmp_path}' créé avec succès.")
+        except FileExistsError:
+            print(f"Le répertoire '{config.tmp_path}' existe déjà.")
         self.update_plugins()
 
     def update_plugins(self):
-         with open(self.path_yaml_plugin, 'r') as fichier:
+         with open(self.config.plugins_path, 'r') as fichier:
             contenu = yaml.safe_load(fichier)
             plugind = json.loads(json.dumps(contenu))
 
@@ -64,8 +75,12 @@ class Callbacks(IObservable):
                 name = plugin['name']
                 url = plugin['url']
                 package = plugin['package']
-                folder = "/plugins/"+package
-                #print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
+                
+                folder = os.path.join(self.plugins_root,package)
+                
+
+                
+                print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
                 if 'env' in plugin :
                     for env in  plugin['env']:
                         key, val = next(iter(env.items())) 
@@ -80,24 +95,25 @@ class Callbacks(IObservable):
 
 
     def load_plugin(self, plugin_name, package, plugin_url, plugin_path):
+        logger.info(f"+++++++++++++++++++++++++++++++name = {plugin_name}, folder = {plugin_path}, url = {plugin_url}, package={package}")
+                
         try:
             logger.info(f"********************************* Load {plugin_name}")
             if plugin_name in self.plugins:
                 self.unload_plugin(plugin_name)
             if os.path.isdir(plugin_path):
                 shutil.rmtree(plugin_path)
-            data_path = "/data/"+plugin_name
-            if not os.path.isdir(data_path):
-                os.mkdir(data_path)
             self.unload_plugin(plugin_name)
-            sys.path.append("/plugins/")
-            #logger.info(f"******************************** sys.path = {sys.path}")
+            sys.path.append(plugin_path)
+            logger.info(f"******************************** sys.path = {sys.path}")
+            logger.info(f"!!!!!!!!!!!!!!!!!!!!!! avant clone {plugin_url} dans {plugin_path}")
             git.Repo.clone_from(plugin_url, plugin_path)
+            subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
             subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
-            #logger.info(f"********************************* Import module {plugin_name}")
+            logger.info(f"********************************* Import module {plugin_name}")
             module = importlib.import_module("."+plugin_name,package=package)
-            #logger.info(f"================================================ module = {module}")
-            self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
+            logger.info(f"================================================ module = {module}")
+            self.plugins[plugin_name] = module.Plugin(self,plugin_path)  # Assumer une classe Plugin standard
             self.plugins[plugin_name].start()
         except Exception as err:
             logger.debug(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Load plugin {err}")
@@ -146,14 +162,15 @@ class Callbacks(IObservable):
         l = msg.split(' ')
         #le préfixe de la commande est le premier mot
         cmd1 = l[0]
-        #le nouveau message est le reste
-        msg = ' '.join(l[1:])
+        
         
         #si un objet est indexé par le préfixe de la commande on l'utilise
         print(f"****************************commande = {cmd1} et observers = {self.observers}")
         o = None;
         try:
             o = self.observers[cmd1]
+            #le nouveau message est le reste
+            msg = ' '.join(l[1:])
         except:
             logger.warning(f"****************************** {cmd1} introuvable essayons perroquet")
             try:

@@ -79,6 +79,10 @@ class Config(object):
             self.database = {"type": "postgres", "connection_string": database_path}
         else:
             raise ConfigError("Invalid connection string for storage.database")
+        self.store_path = self._get_cfg(["storage", "store_path"], required=True)
+        self.data_path = self._get_cfg(["storage", "data_path"], required=True)
+        self.tmp_path = self._get_cfg(["storage", "tmp_path"], required=True)
+        self.plugins_path = self._get_cfg(["storage", "plugins_path"], required=True)
 
         # Matrix bot account setup
         self.user_id = self._get_cfg(["matrix", "user_id"], required=True)

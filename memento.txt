@@ -47,4 +47,5 @@ docker exec -it synapse register_new_matrix_user -u amicus -p is0t0pie -c /data/
 
 docker-compose -f ./docker/docker-compose.yml up amicus_bot -d
 
-
+docker run -it --rm -v /Users/mauceric/PRG/amicus_bot/tests:/tests ubuntu bash
+docker-compose -f /Users/mauceric/PRG/amicus_bot/docker/docker-compose.yml up test

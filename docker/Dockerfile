@@ -97,7 +97,6 @@ RUN pip install --prefix="/python-libs" --no-warn-script-location "/src/.[postgr
 # Create the container we'll actually ship. We need to copy libolm and any
 # python dependencies that we built above to this container
 FROM python:${PYTHON_VERSION}-buster
-ENV ANY_SCALE_API_KEY="esecret_xa4u81rr938asp8am9j6a2t1gb"
 
 # Copy python dependencies from the "builder" container
 COPY --from=builder /python-libs /usr/local

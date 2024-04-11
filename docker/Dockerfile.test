@@ -40,15 +40,15 @@ RUN apk add --no-cache \
     yaml-dev \
     python3-dev
 
+RUN pip install matrix-nio[e2e]
 # Build libolm
 COPY docker/build_and_install_libolm.sh /scripts/
 RUN /scripts/build_and_install_libolm.sh ${LIBOLM_VERSION}
-RUN echo "here"
+
 # Install native runtime dependencies
 RUN apk add --no-cache \
     musl-dev \
     libpq \
-    postgresql-dev \
     libstdc++
 
 # Install python runtime modules. We do this before copying the source code
@@ -57,15 +57,14 @@ RUN mkdir -p /src/amicus_bot
 COPY amicus_bot/__init__.py /src/amicus_bot/
 COPY README.md amicus-bot /src/
 COPY setup.py /src/setup.py
-RUN pip install -e "/src/.[postgres]"
 
 # Now copy the source code
 COPY amicus_bot/*.py /src/amicus_bot/
-COPY *.py /src/
+RUN pip install /src/
 
 # Specify a volume that holds the config file, SQLite3 database,
 # and the matrix-nio store
-VOLUME ["/data"]
+VOLUME ["/tests"]
 
 # Start the app
-ENTRYPOINT ["amicus-bot", "/data/config.yaml"]
+ENTRYPOINT ["python","/tests/test_bot.py"]
