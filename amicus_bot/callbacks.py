@@ -46,7 +46,7 @@ class Callbacks(IObservable):
         self.observers = {}
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
-        self.path_yaml_plugin = "/data/plugins.yaml"
+        self.path_yaml_plugin = "/data/data_test/plugins.yaml"
         try:
             os.mkdir("/data/tmp")
             print(f"Répertoire '/data/tmp' créé avec succès.")
@@ -93,6 +93,7 @@ class Callbacks(IObservable):
             sys.path.append("/plugins/")
             #logger.info(f"******************************** sys.path = {sys.path}")
             git.Repo.clone_from(plugin_url, plugin_path)
+            subprocess.run([sys.executable, "-m", "pip", "install", "--upgrade", "pip"])
             subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
             #logger.info(f"********************************* Import module {plugin_name}")
             module = importlib.import_module("."+plugin_name,package=package)

@@ -34,7 +34,7 @@ class TestBot(Callbacks):
         logger.info(f"{message}")
 
 async def main():
-    config_path = "/tests/data_test/config.yaml"
+    config_path = "/data/data_test/config.yaml"
     logger.info(f"************************{config_path}")
     
     config = Config(config_path)
@@ -57,7 +57,7 @@ async def main():
 
     tb = TestBot(client, store, config)
 
-    file = open("/tests/data_test/messages.txt", "r")
+    file = open("/data/data_test/messages.txt", "r")
     Lines = file.readlines()
 
     for line in Lines:

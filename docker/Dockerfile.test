@@ -64,7 +64,7 @@ RUN pip install /src/
 
 # Specify a volume that holds the config file, SQLite3 database,
 # and the matrix-nio store
-VOLUME ["/tests"]
+VOLUME ["/data"]
 
 # Start the app
-ENTRYPOINT ["python","/tests/test_bot.py"]
+ENTRYPOINT ["python","/data/test_bot.py"]
