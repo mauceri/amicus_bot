@@ -1,0 +1,70 @@
+# This dockerfile is crafted specifically for development purposes.
+# Please use `Dockerfile` instead if you wish to deploy for production.
+#
+# This file differs as it does not use a builder container, nor does it
+# reinstall the project's python package after copying the source code,
+# saving significant time during rebuilds.
+#
+# To build the image, run `docker build` command from the root of the
+# repository:
+#
+#    docker build -f docker/Dockerfile .
+#
+# There is an optional PYTHON_VERSION build argument which sets the
+# version of python to build against. For example:
+#
+#    docker build -f docker/Dockerfile --build-arg PYTHON_VERSION=3.8 .
+#
+# An optional LIBOLM_VERSION build argument which sets the
+# version of libolm to build against. For example:
+#
+#    docker build -f docker/Dockerfile --build-arg LIBOLM_VERSION=3.1.4 .
+#
+
+ARG PYTHON_VERSION=3.8
+FROM docker.io/python:${PYTHON_VERSION}-alpine3.11
+
+##
+## Build libolm for matrix-nio e2e support
+##
+
+# Install libolm build dependencies
+ARG LIBOLM_VERSION=3.1.4
+RUN apk add --no-cache \
+    make \
+    cmake \
+    gcc \
+    g++ \
+    git \
+    libffi-dev \
+    yaml-dev \
+    python3-dev
+
+RUN pip install matrix-nio[e2e]
+# Build libolm
+COPY docker/build_and_install_libolm.sh /scripts/
+RUN /scripts/build_and_install_libolm.sh ${LIBOLM_VERSION}
+
+# Install native runtime dependencies
+RUN apk add --no-cache \
+    musl-dev \
+    libpq \
+    libstdc++
+
+# Install python runtime modules. We do this before copying the source code
+# such that these dependencies can be cached
+RUN mkdir -p /src/amicus_bot
+COPY amicus_bot/__init__.py /src/amicus_bot/
+COPY README.md amicus-bot /src/
+COPY setup.py /src/setup.py
+
+# Now copy the source code
+COPY amicus_bot/*.py /src/amicus_bot/
+RUN pip install /src/
+
+# Specify a volume that holds the config file, SQLite3 database,
+# and the matrix-nio store
+VOLUME ["/tests"]
+
+# Start the app
+ENTRYPOINT ["python","/tests/test_bot.py"]
