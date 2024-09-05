@@ -49,9 +49,8 @@ class Callbacks(IObservable):
         self.path_yaml_plugin = "/data/data_test/plugins.yaml"
         try:
             os.mkdir("/data/tmp")
-            print(f"Répertoire '/data/tmp' créé avec succès.")
         except FileExistsError:
-            print(f"Le répertoire '/data/tmp' existe déjà.")
+            logger.info(f"Le répertoire '/data/tmp' existe déjà.")
         self.update_plugins()
 
     def update_plugins(self):
@@ -60,12 +59,10 @@ class Callbacks(IObservable):
             plugind = json.loads(json.dumps(contenu))
 
             for plugin in plugind['plugins']:
-                print(f"plugin={plugin}")
                 name = plugin['name']
                 url = plugin['url']
                 package = plugin['package']
                 folder = "/plugins/"+package
-                #print(f"+++++++++++++++++++++++++++++++name = {name}, folder = {folder}, url = {url}, package={package}")
                 if 'env' in plugin :
                     for env in  plugin['env']:
                         key, val = next(iter(env.items())) 
@@ -81,7 +78,7 @@ class Callbacks(IObservable):
 
     def load_plugin(self, plugin_name, package, plugin_url, plugin_path):
         try:
-            logger.info(f"********************************* Load {plugin_name}")
+            logger.info(f"********************************* Chargement de {plugin_name}")
             if plugin_name in self.plugins:
                 self.unload_plugin(plugin_name)
             if os.path.isdir(plugin_path):
@@ -97,7 +94,7 @@ class Callbacks(IObservable):
             subprocess.run([sys.executable, "-m", "pip", "install", "-e", plugin_path])
             #logger.info(f"********************************* Import module {plugin_name}")
             module = importlib.import_module("."+plugin_name,package=package)
-            #logger.info(f"================================================ module = {module}")
+            logger.info(f"================================================ module {module} importé")
             self.plugins[plugin_name] = module.Plugin(self)  # Assumer une classe Plugin standard
             self.plugins[plugin_name].start()
         except Exception as err:
