@@ -154,15 +154,15 @@ class Callbacks(IObservable):
             o = self.observers[cmd1]
         except:
             logger.warning(f"****************************** {cmd1} introuvable essayons perroquet")
-            try:
-                o = self.observers["!coco"]
-            except:
-                logger.warning(f"****************************** perroquet n'est pas chargé")
-                return
+            # try:
+            #     o = self.observers["!coco"]
+            # except:
+            #     logger.warning(f"****************************** perroquet n'est pas chargé")
+            #     return
         if o != None:
             await o.notify(room,event,msg)
-        else:
-            logger.warning(f"****************************** perroquet n'est pas chargé")
+        # else:
+        #     logger.warning(f"****************************** perroquet n'est pas chargé")
         
 
     def padding_for_b64decode(self,s):
