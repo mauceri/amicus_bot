@@ -46,7 +46,8 @@ class Callbacks(IObservable):
         self.observers = {}
         self.plugins = {}
         logger.info(f"****************** Loading plugins")
-        self.path_yaml_plugin = "/data/data_test/plugins.yaml"
+#        self.path_yaml_plugin = "/data/data_test/plugins.yaml"
+        self.path_yaml_plugin = "/data/plugins.yaml"
         try:
             os.mkdir("/data/tmp")
         except FileExistsError:
